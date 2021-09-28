@@ -1,7 +1,13 @@
 module.exports = {
   home: {
     wallet: "Connect wallet",
-    vote: "vote",
-    vote_number: "Number of votes"
+    vote: "Vote",
+    vote_number: "Number of votes",
+    share:"Share",
+    active:"active",
+    cast:"Cast",
+    information:"Information",
+    result:"Current result",
+    report:"Download report"
   }
 };
