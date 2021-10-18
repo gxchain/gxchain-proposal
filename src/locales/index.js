@@ -11,8 +11,10 @@ const messages = {
   "zh-CN": zh
 };
 
+let locale = localStorage.language||navigator.language;
+
 export default new VueI18n({
-  locale: "zh-CN",
+  locale: locale,
   fallbackLocale: "en-US",
   messages
 });
