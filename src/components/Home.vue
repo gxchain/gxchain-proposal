@@ -6,9 +6,9 @@
         <div>proposal</div>
       </div>
       <div class="header-right">
-        <div class="link-wallet" @click="login()" v-if="this.accountName===''">
+        <el-button class="link-wallet" @click="login()" v-if="this.accountName===''">
           {{ $t("home.wallet") }}
-        </div>
+        </el-button>
         <div class="link-wallet" v-else>
           <el-dropdown trigger="click">
           <span class="el-dropdown-link">
@@ -31,7 +31,7 @@
         <div class="block-item">
           <h2 class="title">IP-82: Move yUSD funds to yDAI Vault</h2>
           <div class="share-active">
-            <div class="active">{{ $t("home.active") }}</div>
+            <div :class="this.canVote ? 'active' : 'disActive'">{{ $t("home.active") }}</div>
           </div>
           <p>
             Yam Finance YIP-82: Move yUSD funds to yDAI Vault 活跃 Yearn's yUSD
@@ -63,95 +63,74 @@
             <div>{{ $t("home.vote") }}</div>
           </div>
           <div class="voting-button">
-            <el-button @click="select(1)" :class="index==1?'use':'notuse'">yes</el-button>
-            <el-button @click="select(2)" :class="index ==2?'use':'notuse'" >no</el-button>
-            <el-button :disabled="disabled" :class="disabled?'disabled-button':'no-disabled'" @click="vote()" :loading="loading">确认</el-button>
+            <el-button @click="select(1)" :class="index==1?'use':'notuse'">{{ $t("home.agree") }}</el-button>
+            <el-button @click="select(2)" :class="index ==2?'use':'notuse'" >{{ $t("home.disagree") }}</el-button>
+            <el-button :disabled="disabled" :class="disabled?'disabled-button':'no-disabled'" @click="vote()" :loading="loading">{{$t("home.yes")}}</el-button>
           </div>
         </div>
         <div class="vote-number">
           <div class="numberText">{{ $t("home.vote_number") }}</div>
           <ul>
-            <li v-for="(item, index) in voteList" :key="index" style="align-items:center">
+            <li v-for="(item, index) in detailList" :key="index" style="align-items:center">
               <div class="vote-head">
                 <account-image :account="item.userName" :size="15" style="margin-right:10px"></account-image>
                 <div>
                   {{ item.userName }}
                 </div>
               </div>
-                <div v-if="item.votingstate">Yes</div>
-                <div v-else>No</div>
-              <!-- <div
-                class="vote-detail"
-                v-show="isVoteDetail && index == current"
-                @mouseleave="onMousteOut(index)"
-              >
-                <img class="img" src="@/assets/logo.png" alt="" />
-                <div style="margin-top: 1.2rem">{{ item.name }}</div>
-                <div class="browser-view">
-                  <div>在浏览器上查看</div>
-                  <div>#</div>
-                </div>
-              </div> -->
+                <div v-if="item.votingstate">{{$t("home.agree")}}</div>
+                <div v-else>{{$t("home.disagree")}}</div>
             </li>
           </ul>
-          <button
-            class="unfold-hide"
-            v-if="detailList.length > 6"
-            @click="changeFoldState"
-          >
-            {{ $t("home.expand") }}&gt;&gt;
-          </button>
         </div>
       </div>
-      <div class="section-right">
+      <div class="section-right" v-show="voteResultShow">
         <div class="right-fomat">
           <div style="display:flex;align-items:center">
             <div class="inforText">{{ $t("home.totalVote") }}</div>
-            <div class="totalVote">{{totalVote}}</div>
+            <div class="totalVote">{{this.number.totalVote}}</div>
           </div>
           <div class="result">
             <div class="result-content">
-              <div>Yes</div>
+              <div>{{$t("home.agree")}}</div>
               <el-progress
-                :percentage="voteNumberTrue"
+                :percentage="this.number.voteNumberTrue"
                 :stroke-width="8"
                 color="rgb(73,129,255)"
               ></el-progress>
             </div>
             <div class="result-content">
-              <div>No</div>
+              <div>{{$t("home.disagree")}}</div>
               <el-progress
-                :percentage="voteNumberFalse"
+                :percentage="this.number.voteNumberFalse"
                 :stroke-width="8"
                 color="rgb(73,129,255)"
               ></el-progress>
             </div>
-            <el-button class="download">{{ $t("home.report") }}</el-button>
           </div>
         </div>
         <div class="right-fomat">
           <div style="display:flex;align-items:center">
             <div class="inforText">{{ $t("home.totalUserVote") }}</div>
-            <div class="totalVote">{{totalUserVote}}</div>
+            <div class="totalVote">{{this.user.totalUserVote}}</div>
           </div>
           <div class="result">
             <div class="result-content">
-              <div>Yes</div>
+              <div>{{$t("home.agree")}}</div>
               <el-progress
-                :percentage="voteUserTrue"
+                :percentage="this.user.voteUserTrue"
                 :stroke-width="8"
                 color="rgb(73,129,255)"
               ></el-progress>
             </div>
             <div class="result-content">
-              <div>No</div>
+              <div>{{$t("home.disagree")}}</div>
               <el-progress
-                :percentage="voteUserFalse"
+                :percentage="this.user.voteUserFalse"
                 :stroke-width="8"
                 color="rgb(73,129,255)"
               ></el-progress>
             </div>
-            <el-button class="download">{{ $t("home.report") }}</el-button>
           </div>
         </div>
       </div>
@@ -163,15 +142,6 @@
 <script>
 import axios from "axios";
 import AccountImage from './sub/AccountImage.vue';
- const network = {
-    blockchain: 'gxc',
-    protocol: 'https',
-    host: 'testnet.gxchain.org',
-    port: 443,
-    chainId: 'c2af30ef9340ff81fd61654295e98a1ff04b23189748f86727d0b26b40bb0ff4'
-    }
-
-    let contractName = 'bjnvoting'
     let gscatter
     let gxc
 export default {
@@ -190,34 +160,23 @@ export default {
       signShow:false,
       detailList: [],
       loading:false,
-      totalVote:90,
-      voteNumberTrue:16,
-      voteNumberFalse:49,
-      totalUserVote:40,
-      voteUserTrue:22,
-      voteUserFalse:6
+      network:process.env.network,
+      contractName:process.env.contractName,
+      number: {
+          totalVote: 1,
+          voteNumberTrue: 16,
+          voteNumberFalse: 49
+      },
+      user: {
+          totalUserVote: 1,
+          voteUserTrue: 22,
+          voteUserFalse: 6
+      },
+      canVote:true,
+      voteResultShow:true
     };
   },
   computed: {
-    voteList: {
-      get: function () {
-        if (this.brandFold) {
-          if (this.detailList.length < 7) {
-            return this.detailList;
-          }
-          let newArr = [];
-          for (var i = 0; i < 6; i++) {
-            let item = this.detailList[i];
-            newArr.push(item);
-          }
-          return newArr;
-        }
-        return this.detailList;
-      },
-      set: function (val) {
-        this.voteList = val;
-      },
-    },
   },
   mounted:function(){
       var _language = localStorage.language
@@ -226,31 +185,73 @@ export default {
       GScatterJS.gscatter.connect('starProgram').then(async connected => {
         if (!connected) return false
           gscatter = GScatterJS.gscatter
-          gxc = gscatter.gxc(network)
+          gxc = gscatter.gxc(this.network)
           if (gscatter.identity) {
             let account = gscatter.identity.accounts.find(x => x.blockchain === 'gxc')
             this.accountName = account.name
           }
       })
-      this.send();
+      this.send()
+      this.voteEnds()
+      //判断投票是否结束
+      if (this.canVote) {
+        this.voteResultShow = false;
+      }else{
+        this.voteResultShow = true;
+      }
   },
+  // onShow () {
+  //   this.detailList = [];
+  //   this.send()
+  // },
   methods: {
+    output() {
+      const combined = Array.from(arguments).map(arg => {
+        if (typeof arg === 'object') {
+          return JSON.stringify(arg)
+        } else {
+          return arg
+        }
+      })
+      console.log(...arguments)
+      this.logs.push({ time: new Date(), text: combined.join('\n--------------\n') })
+    },
+    async login(){
+      if(!GScatterJS.gscatter.isExtension){
+        var flag = confirm(this.$t("home.download"));
+        if (flag) {
+          window.open('https://gxchain.github.io/GScatter/arch/guide/');
+        }
+      }else{
+        const identity = await GScatterJS.gscatter.getIdentity({ accounts: [this.network] })
+        if (identity) {
+          const account = gscatter.identity.accounts.find(x => x.blockchain === 'gxc')
+          this.accountName = account.name
+        }
+        this.output(identity)
+        this.$message({
+          message:this.$t("home.link_success"),
+            type: 'success'
+          });
+      }
+    },
+    async logout() {
+      try {
+        await GScatterJS.gscatter.forgetIdentity()
+        this.accountName = "";
+        this.$message({
+          message:this.$t("home.signed"),
+            type: 'success'
+          });
+      } catch (err) {
+        // no identity found
+        this.output(err)
+      }
+    },
     //显示下拉框
     signOut(){
       this.signShow = !this.signShow
     },
-    //显示更多
-    changeFoldState() {
-      this.brandFold = !this.brandFold;
-    },
-    // voteDetail: function (index) {
-    //   this.isVoteDetail = true; //鼠标移入显示
-    //   this.current = index;
-    // },
-    // onMousteOut: function (index) {
-    //   this.isVoteDetail = false; //鼠标移出隐藏
-    //   this.current = null;
-    // },
     vote(){
       let flag = false;
       for(var i = 0; i < this.detailList.length; i++){
@@ -264,48 +265,51 @@ export default {
             type: 'error'
           });
       }else{
+        this.loading = true
         if(this.index === 1){
-          this.loading = true
           this.$alert(!flag?this.$t("home.support"):this.$t("home.change_support"), this.$t("home.vote"), {
             confirmButtonText: this.$t("home.yes"),
             callback: (action) => {
               if (action === 'confirm') {
-                gxc.callContract(contractName, 'vote', {approve:true}, '', true).then(trx => {
+                gxc.callContract(this.contractName, 'vote', {approve:true}, '', true).then(trx => {
                   this.output(`call contract success`, trx)
                   this.$message({
                     message: this.$t("home.vote_success"),
                     type: 'success'
                   });
-                  location.reload();
+                  this.loading = false;
+                  this.send();
                 }).catch(error => {
                   this.output(error)
                   this.$message({
                     message:this.$t("home.vote_fail"),
                     type: 'error'
                   });
+                  this.loading = false
                 })
               }
             }
           })
-          this.loading = false
         }else{
           this.$alert(!flag?this.$t("home.no_support"):this.$t("home.change_noSupport"), this.$t("home.vote"), {
             confirmButtonText: this.$t("home.yes"),
             callback: (action) => {
               if (action === 'confirm') {
-                gxc.callContract(contractName, 'vote', {approve:false}, '', true).then(trx => {
+                gxc.callContract(this.contractName, 'vote', {approve:false}, '', true).then(trx => {
                   this.output(`call contract success`, trx)
                   this.$message({
                     message: this.$t("home.vote_success"),
                     type: 'success'
                   });
-                  location.reload();
+                  this.loading = false;
+                  this.send();
                 }).catch(error => {
                   this.output(error)
                   this.$message({
                     message:this.$t("home.vote_fail"),
                     type: 'error'
                   });
+                  this.loading = false
                 })
               }
             }
@@ -314,31 +318,44 @@ export default {
       }
     },
     //投票列表
-    send(){
+    send () {
+      //获取投票人及其信息
         axios({
           method:'get',
-          url:'/proposal/api/voter'
+          url:`${process.env.__SERVICE__}/proposal/api/voter`
         }).then((resp)=>{
-          console.log(resp.data);
           this.detailList = resp.data.result;
         }).catch(resp => {
           console.log(this.$t("home.request")+resp.status+','+resp.statusText);
         });
-         axios({
+    },
+    voteEnds () {
+        //投票结束后,结果
+        axios({
           method:'get',
-          url:'/proposal/api/statistics'
-        }).then((resp)=>{
-          this.totalVote = resp.data.statistics.totalVoteGXCNumber; //投票总数
-          this.voteNumberTrue = (resp.data.statistics.totalVoteGXCNumberTrue/this.totalVote*100); //投true总数
-          this.voteNumberFalse = (resp.data.statistics.totalVoteGXCNumberFalse/this.totalVote*100); //投false总数
-          this.totalUserVote = resp.data.statistics.voteUserNumber; //投票总人数
-          this.voteUserTrue = (resp.data.statistics.voteUserNumberTrue/totalUserVote*100); //投true总人数
-          this.voteUserFalse = (resp.data.statistics.voteUserNumberFalse/totalUserVote*100); //投false总人数
+          url:`${process.env.__SERVICE__}/proposal/api/statistics`
+        }).then((resp) => {
+          this.number.totalVote = resp.data.statistics.totalVoteGXCNumber; //投票总数
+          this.number.voteNumberTrue = (resp.data.statistics.totalVoteGXCNumberTrue/this.number.totalVote*100); //投true总数
+          this.number.voteNumberFalse = (resp.data.statistics.totalVoteGXCNumberFalse/this.number.totalVote*100); //投false总数
+          this.user.totalUserVote = resp.data.statistics.voteUserNumber; //投票总人数
+          this.user.voteUserTrue = (resp.data.statistics.voteUserNumberTrue/this.user.totalUserVote*100); //投true总人数
+          this.user.voteUserFalse = (resp.data.statistics.voteUserNumberFalse/this.user.totalUserVote*100); //投false总人数
           console.log(resp.data);
         }).catch(resp => {
-          // console.log(this.$t("home.request")+resp.status+','+resp.statusText);
+          console.log(this.$t("home.request")+resp.status+','+resp.statusText);
         });
-      },
+        //投票结束的时间
+        axios({
+          method:'get',
+          url:`${process.env.__SERVICE__}/proposal/api/state`
+        }).then((resp)=>{
+          this.canVote = resp.data.canVote;
+          console.log(resp.data);
+        }).catch(resp => {
+          console.log(this.$t("home.request")+resp.status+','+resp.statusText);
+        });
+    },
     //选择yes or no
     select(i) {
       this.disabled=false
@@ -353,35 +370,6 @@ export default {
       }else{
         this.$i18n.locale='en-US'
         localStorage.setItem('language',this.language);
-        // localStorage.clear();
-      }
-    },
-    output() {
-      const combined = Array.from(arguments).map(arg => {
-        if (typeof arg === 'object') {
-          return JSON.stringify(arg)
-        } else {
-          return arg
-        }
-      })
-      console.log(...arguments)
-      this.logs.push({ time: new Date(), text: combined.join('\n--------------\n') })
-    },
-    async login(){
-      const identity = await GScatterJS.gscatter.getIdentity({ accounts: [network] })
-      if (identity) {
-        const account = gscatter.identity.accounts.find(x => x.blockchain === 'gxc')
-        this.accountName = account.name
-      }
-      this.output(identity)
-    },
-    async logout() {
-      try {
-        await GScatterJS.gscatter.forgetIdentity()
-        this.accountName = "";
-      } catch (err) {
-        // no identity found
-        this.output(err)
       }
     },
   },
@@ -397,10 +385,6 @@ export default {
 * {
   margin: 0;
   padding: 0;
-}
->>> .el-message-box {
-  width: 250px;
-  background-color:red;
 }
 .home {
   .header {
@@ -426,8 +410,8 @@ export default {
       .link-wallet {
         border: 1px rgb(123, 166, 255) solid;
         font-size: 0.8em;
-        padding: 4px 12px;
-        border-radius: 16px;
+        padding: 6px 12px;
+        border-radius: 20px;
         margin-right: 0.8rem;
         color: rgb(123, 166, 255);
       }
@@ -460,7 +444,7 @@ export default {
     background-color: rgb(231, 232, 243);
     .section-left {
       margin-top: 1rem;
-      width: 63%;
+      width: 66%;
       margin-bottom: 1.2rem;
       .block-item{
         background-color: #FFF;
@@ -476,6 +460,12 @@ export default {
         justify-content: space-between;
         .active {
           background-color: rgb(255, 126, 29);
+          padding: 1px 8px;
+          border-radius: 12px;
+          color: #fff;
+        }
+        .disActive {
+          background-color: rgb(188, 189, 193);
           padding: 1px 8px;
           border-radius: 12px;
           color: #fff;
@@ -504,6 +494,7 @@ export default {
             border-radius: 16px;
             margin-bottom: 16px;
             margin-left:10%;
+            background-color: #ecf5ff;
           }
           .notuse{
             text-align: center;
@@ -524,7 +515,7 @@ export default {
             border-radius: 16px;
             margin-bottom: 12px;
             margin-left:10%;
-            background-color:rgb(178, 181, 205);
+            background-color:rgb(188, 189, 193);
           }
           .no-disabled{
             text-align: center;
@@ -544,6 +535,9 @@ export default {
         background-color: #FFF;
         border-radius: 10px;
         padding: 1.2rem;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        max-height: 34rem;
         .numberText {
           padding: 0.8rem 2%;
         }
@@ -621,16 +615,6 @@ export default {
         background-color: #FFF;
         padding:1.2rem;
         border-radius: 10px;
-        .download {
-          text-align: center;
-          width: 80%;
-          border: 1px rgb(123, 166, 255) solid;
-          border-radius: 16px;
-          padding: 4px;
-          color: rgb(123, 166, 255);
-          margin-top: 1.2rem;
-          margin-left: 10%;
-        }
       }
       .result {
         padding: 0 4%;

@@ -9,18 +9,23 @@ module.exports = {
     information:"Information",
     result:"Current result",
     report:"Download report",
-    support:"Are you sure you support it？",
-    no_support:"Are you sure you don't support it？",
+    support:"Are you sure you agree?",
+    no_support:"Are you sure you disagree?",
     yes:"Confirm",
     vote_success:"Successful voting",
     vote_fail:"Voting failed",
     sign_out:"Exit",
     expand:"Expand the remainder",
     not_connect:"Not connected to wallet",
-    change_support:"Sure to change to support?",
-    change_noSupport:"Sure to change to unsupported?",
+    change_support:"Are you sure to change to agree?",
+    change_noSupport:"Are you sure to change to disagree?",
     request:"Request failed",
     totalVote:"Total votes",
-    totalUserVote:"Number of voters"
+    totalUserVote:"Number of voters",
+    agree: "Yes",
+    disagree: "No",
+    download:"Did not download this plug-in, jump to the page to download?",
+    link_success:"connection succeeded",
+    signed:"Signed out"
   }
 };
