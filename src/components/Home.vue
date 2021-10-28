@@ -14,9 +14,8 @@
           <span class="el-dropdown-link">
             {{this.accountName}}<i class="el-icon-arrow-down el-icon--right"></i>
           </span>
-          <el-dropdown-menu slot="dropdown" style="width:50px;padding:8px;padding-left:25px;cursor:pointer;" onMouseOver="this.style.background='rgb(219, 229, 255)'"
-   onMouseOut="this.style.background='#FFF'">
-            <div class="" @click="logout()">{{ $t("home.sign_out") }}</div>
+          <el-dropdown-menu slot="dropdown" style="padding:8px 35px;cursor:pointer">
+            <div class="exit" @click="logout()">{{ $t("home.sign_out") }}</div>
           </el-dropdown-menu>
         </el-dropdown>
         </div>
@@ -156,9 +155,11 @@ export default {
       current: 0,
       index: 0,
       disabled:true,
-      language:'zh-CN',
+      language:navigator.language,
       signShow:false,
       detailList: [],
+      resultFalseList:[],
+      resultTrueList:[],
       loading:false,
       network:process.env.network,
       contractName:process.env.contractName,
@@ -173,37 +174,59 @@ export default {
           voteUserFalse: 6
       },
       canVote:true,
-      voteResultShow:true
+      voteResultShow:true,
     };
   },
   computed: {
   },
   mounted:function(){
-      var _language = localStorage.language
-      this.$i18n.locale = _language
+    var _language = localStorage.language
+    if(_language == undefined){
+      localStorage.setItem('language',this.language);
+    }else{
       this.language = _language
-      GScatterJS.gscatter.connect('starProgram').then(async connected => {
-        if (!connected) return false
-          gscatter = GScatterJS.gscatter
-          gxc = gscatter.gxc(this.network)
-          if (gscatter.identity) {
-            let account = gscatter.identity.accounts.find(x => x.blockchain === 'gxc')
-            this.accountName = account.name
-          }
-      })
-      this.send()
-      this.voteEnds()
-      //判断投票是否结束
-      if (this.canVote) {
-        this.voteResultShow = false;
-      }else{
-        this.voteResultShow = true;
-      }
+    }
+    GScatterJS.gscatter.connect('starProgram').then(async connected => {
+      if (!connected) return false
+        gscatter = GScatterJS.gscatter
+        gxc = gscatter.gxc(this.network)
+        if (gscatter.identity) {
+          let account = gscatter.identity.accounts.find(x => x.blockchain === 'gxc')
+          this.accountName = account.name
+        }
+    })
+    this.getVoter()
+    this.getVoteEnds()
+    this.timer = setInterval(()=>{
+      this.getVoter()
+    },3000);
+    //判断投票是否结束
+    if (this.canVote) {
+      this.voteResultShow = false;
+    }else{
+      this.voteResultShow = true;
+      //投票结束后,结果
+      axios({
+        method:'get',
+        url:`${process.env.__SERVICE__}/proposal/api/statistics`
+      }).then((resp) => {
+        this.number.totalVote = resp.data.statistics.totalVoteGXCNumber; //投票总数
+        this.number.voteNumberTrue = (resp.data.statistics.totalVoteGXCNumberTrue/this.number.totalVote*100); //投true总数
+        this.number.voteNumberFalse = (resp.data.statistics.totalVoteGXCNumberFalse/this.number.totalVote*100); //投false总数
+        this.user.totalUserVote = resp.data.statistics.voteUserNumber; //投票总人数
+        this.user.voteUserTrue = (resp.data.statistics.voteUserNumberTrue/this.user.totalUserVote*100); //投true总人数
+        this.user.voteUserFalse = (resp.data.statistics.voteUserNumberFalse/this.user.totalUserVote*100); //投false总人数
+        console.log(resp.data);
+      }).catch(resp => {
+        console.log(this.$t("home.request")+resp.status+','+resp.statusText);
+        this.$message({
+          message:his.$t("home.statistics_request")+ resp.status+','+resp.statusText,
+          type: 'error'
+        });
+      });
+    }
   },
-  // onShow () {
-  //   this.detailList = [];
-  //   this.send()
-  // },
+
   methods: {
     output() {
       const combined = Array.from(arguments).map(arg => {
@@ -254,107 +277,133 @@ export default {
     },
     vote(){
       let flag = false;
+      let flagTrue = false;
+      let flagFalse= false;
       for(var i = 0; i < this.detailList.length; i++){
         if(this.accountName === this.detailList[i].userName){
           flag = true;
         }
-    }
+      }
+      for(var j = 0; j < this.resultTrueList.length; j++){
+        if(this.accountName === this.resultTrueList[j].userName){
+          flagTrue = true;
+        }
+      }
+      for(var k = 0; k < this.resultFalseList.length; k++){
+        if(this.accountName === this.resultFalseList[k].userName){
+          flagFalse = true;
+        }
+      }
       if(this.accountName==''){
         this.$message({
-          message:this.$t("home.not_connect"),
+            message:this.$t("home.not_connect"),
             type: 'error'
           });
       }else{
         this.loading = true
         if(this.index === 1){
-          this.$alert(!flag?this.$t("home.support"):this.$t("home.change_support"), this.$t("home.vote"), {
-            confirmButtonText: this.$t("home.yes"),
-            callback: (action) => {
-              if (action === 'confirm') {
-                gxc.callContract(this.contractName, 'vote', {approve:true}, '', true).then(trx => {
-                  this.output(`call contract success`, trx)
-                  this.$message({
-                    message: this.$t("home.vote_success"),
-                    type: 'success'
-                  });
+          if(!flagTrue){
+            this.$alert(!flag?this.$t("home.support"):this.$t("home.change_support"), this.$t("home.vote"), {
+              confirmButtonText: this.$t("home.yes"),
+              callback: (action) => {
+                if (action === 'confirm') {
+                  gxc.callContract(this.contractName, 'vote', {approve:true}, '', true).then(trx => {
+                    this.output(`call contract success`, trx)
+                    this.loading = false;
+                    this.$message({
+                      message: this.$t("home.vote_success"),
+                      type: 'success'
+                    });
+                    this.getVoter();
+                  }).catch(error => {
+                    this.output(error)
+                    this.loading = false;
+                    this.$message({
+                      message:this.$t("home.vote_fail"),
+                      type: 'error'
+                    });
+                  })
+                }else{
                   this.loading = false;
-                  this.send();
-                }).catch(error => {
-                  this.output(error)
-                  this.$message({
-                    message:this.$t("home.vote_fail"),
-                    type: 'error'
-                  });
-                  this.loading = false
-                })
+                }
               }
-            }
-          })
+            })
+          }else{
+            this.$message({
+              message:this.$t("home.cast_agree"),
+              type: 'error'
+            });
+            this.loading = false;
+          }
         }else{
-          this.$alert(!flag?this.$t("home.no_support"):this.$t("home.change_noSupport"), this.$t("home.vote"), {
-            confirmButtonText: this.$t("home.yes"),
-            callback: (action) => {
-              if (action === 'confirm') {
-                gxc.callContract(this.contractName, 'vote', {approve:false}, '', true).then(trx => {
-                  this.output(`call contract success`, trx)
-                  this.$message({
-                    message: this.$t("home.vote_success"),
-                    type: 'success'
-                  });
-                  this.loading = false;
-                  this.send();
-                }).catch(error => {
-                  this.output(error)
-                  this.$message({
-                    message:this.$t("home.vote_fail"),
-                    type: 'error'
-                  });
+          if(!flagFalse){
+            this.$alert(!flag?this.$t("home.no_support"):this.$t("home.change_noSupport"), this.$t("home.vote"), {
+              confirmButtonText: this.$t("home.yes"),
+              callback: (action) => {
+                if (action === 'confirm') {
+                  gxc.callContract(this.contractName, 'vote', {approve:false}, '', true).then(trx => {
+                    this.output(`call contract success`, trx)
+                    this.$message({
+                      message: this.$t("home.vote_success"),
+                      type: 'success'
+                    });
+                    this.getVoter();
+                    this.loading = false;
+                  }).catch(error => {
+                    this.output(error)
+                    this.$message({
+                      message:this.$t("home.vote_fail"),
+                      type: 'error'
+                    });
+                    this.loading = false
+                  })
+                }else{
                   this.loading = false
-                })
+                }
               }
-            }
-          })
+            })
+          }else{
+            this.$message({
+              message:this.$t("home.cast_disagree"),
+              type: 'error'
+            });
+            this.loading = false;
+          }
         }
       }
     },
     //投票列表
-    send () {
+    getVoter () {
       //获取投票人及其信息
-        axios({
-          method:'get',
-          url:`${process.env.__SERVICE__}/proposal/api/voter`
-        }).then((resp)=>{
-          this.detailList = resp.data.result;
-        }).catch(resp => {
-          console.log(this.$t("home.request")+resp.status+','+resp.statusText);
+      axios({
+        method:'get',
+        url:`${process.env.__SERVICE__}/proposal/api/voter`
+      }).then((resp)=>{
+        this.detailList = resp.data.result;
+        this.resultFalseList = resp.data.resultFalse;
+        this.resultTrueList = resp.data.resultTrue;
+      }).catch(resp => {
+        console.log(this.$t("home.request")+resp.status+','+resp.statusText);
+        this.$message({
+          message:this.$t("home.voter_request")+resp.status+','+resp.statusText,
+          type: 'error'
         });
+      });
     },
-    voteEnds () {
-        //投票结束后,结果
-        axios({
-          method:'get',
-          url:`${process.env.__SERVICE__}/proposal/api/statistics`
-        }).then((resp) => {
-          this.number.totalVote = resp.data.statistics.totalVoteGXCNumber; //投票总数
-          this.number.voteNumberTrue = (resp.data.statistics.totalVoteGXCNumberTrue/this.number.totalVote*100); //投true总数
-          this.number.voteNumberFalse = (resp.data.statistics.totalVoteGXCNumberFalse/this.number.totalVote*100); //投false总数
-          this.user.totalUserVote = resp.data.statistics.voteUserNumber; //投票总人数
-          this.user.voteUserTrue = (resp.data.statistics.voteUserNumberTrue/this.user.totalUserVote*100); //投true总人数
-          this.user.voteUserFalse = (resp.data.statistics.voteUserNumberFalse/this.user.totalUserVote*100); //投false总人数
-          console.log(resp.data);
-        }).catch(resp => {
-          console.log(this.$t("home.request")+resp.status+','+resp.statusText);
+    getVoteEnds () {
+      //投票结束的时间
+      axios({
+        method:'get',
+        url:`${process.env.__SERVICE__}/proposal/api/state`
+      }).then((resp)=>{
+        this.canVote = resp.data.canVote;
+      }).catch(resp => {
+        console.log(this.$t("home.request") +resp.status+','+resp.statusText);
+        this.$message({
+          message:this.$t("home.state_request")+resp.status+','+resp.statusText,
+          type: 'error'
         });
-        //投票结束的时间
-        axios({
-          method:'get',
-          url:`${process.env.__SERVICE__}/proposal/api/state`
-        }).then((resp)=>{
-          this.canVote = resp.data.canVote;
-          console.log(resp.data);
-        }).catch(resp => {
-          console.log(this.$t("home.request")+resp.status+','+resp.statusText);
-        });
+      });
     },
     //选择yes or no
     select(i) {
@@ -410,13 +459,16 @@ export default {
       .link-wallet {
         border: 1px rgb(123, 166, 255) solid;
         font-size: 0.8em;
-        padding: 6px 12px;
+        padding: 6px 8px;
         border-radius: 20px;
-        margin-right: 0.8rem;
+        // margin-right: 0.8rem;
         color: rgb(123, 166, 255);
       }
-      .signOut:hover{
-        background-color: pink;
+      .exit{
+        width:50px;
+        padding:8px;
+        padding-left:25px;
+        cursor:pointer;
       }
     }
     .language{
@@ -429,6 +481,7 @@ export default {
           background: rgb(123, 166, 255);
           color: #fff;
           width: 1.4rem;
+          padding: 0 4px;
           text-align: center;
         }
         .not-switch{
@@ -625,11 +678,11 @@ export default {
       }
     }
   }
+  /deep/ .el-message-box{
+    width: 320px;
+  }
 }
 @media screen and (max-width: 900px) {
-  .el-message-box{
-    width: 320px !important;
-  }
   .logoImg{
     width: 5rem !important;
     margin-right: 0.5rem !important;
@@ -658,6 +711,9 @@ export default {
 </style>
 <style>
   .el-message-box{
-      width: 320px;
-    }
+    width: 320px;
+  }
+  .el-dropdown-menu:hover{
+    background-color: rgb(219, 229, 255);
+  }
 </style>

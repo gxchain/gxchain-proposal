@@ -19,13 +19,18 @@ module.exports = {
     not_connect:"Not connected to wallet",
     change_support:"Are you sure to change to agree?",
     change_noSupport:"Are you sure to change to disagree?",
-    request:"Request failed",
+    request:"Request failed  ",
     totalVote:"Total votes",
     totalUserVote:"Number of voters",
     agree: "Yes",
     disagree: "No",
     download:"Did not download this plug-in, jump to the page to download?",
     link_success:"connection succeeded",
-    signed:"Signed out"
+    signed:"Signed out",
+    cast_agree:"You have voted to agree~",
+    cast_disagree:"You have already voted to disagree~",
+    statistics_request:"Poll result request failed ",
+    voter_request:"Poll list request failed ",
+    state_request:"Failed to request voting end time ",
   }
 };
