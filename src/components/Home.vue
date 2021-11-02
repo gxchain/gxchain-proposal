@@ -68,7 +68,10 @@
           </div>
         </div>
         <div class="vote-number">
-          <div class="numberText">{{ $t("home.vote_number") }}</div>
+          <div class="header-number">
+            <div class="numberText">{{ $t("home.vote_number") }}</div>
+            <div class="totalVote">{{this.number.totalVote}}</div>
+          </div>
           <ul>
             <li v-for="(item, index) in detailList" :key="index" style="align-items:center">
               <div class="vote-head">
@@ -83,11 +86,30 @@
           </ul>
         </div>
       </div>
-      <div class="section-right" v-show="voteResultShow">
+      <div class="section-right">
         <div class="right-fomat">
-          <div style="display:flex;align-items:center">
-            <div class="inforText">{{ $t("home.totalVote") }}</div>
-            <div class="totalVote">{{this.number.totalVote}}</div>
+          <div class="inforText">{{$t("home.information")}}</div>
+          <div class="information">
+            <div>{{$t("home.start_date")}}</div>
+            <div>2021-09-29</div>
+          </div>
+          <div class="information">
+            <div>{{$t("home.end_date")}}</div>
+            <div>2021-09-29</div>
+          </div>
+        </div>
+        <div class="right-fomat">
+          <div class="result-header">
+            <div class="header-left">
+              <div class="inforText">{{ $t("home.totalVote") }}</div>
+              <div class="totalVote">{{this.number.totalVote}}</div>
+            </div>
+            <el-tooltip class="item"
+                        effect="dark"
+                        placement="top-end"                       >
+              <el-button>?</el-button>
+              <div slot="content">{{$t("home.dint")}}</div>
+            </el-tooltip>
           </div>
           <div class="result">
             <div class="result-content">
@@ -109,9 +131,18 @@
           </div>
         </div>
         <div class="right-fomat">
-          <div style="display:flex;align-items:center">
-            <div class="inforText">{{ $t("home.totalUserVote") }}</div>
-            <div class="totalVote">{{this.user.totalUserVote}}</div>
+          <div class="result-header">
+            <div class="header-left">
+              <div class="inforText">{{$t("home.totalUserVote")}}</div>
+              <div class="totalVote">{{this.user.totalUserVote}}</div>
+            </div>
+            <el-tooltip class="item"
+                        effect="dark"
+                        placement="top-end"
+                        >
+              <el-button>?</el-button>
+              <div slot="content">{{$t("home.dint")}}</div>
+            </el-tooltip>
           </div>
           <div class="result">
             <div class="result-content">
@@ -174,7 +205,6 @@ export default {
           voteUserFalse: 6
       },
       canVote:true,
-      voteResultShow:true,
     };
   },
   computed: {
@@ -196,37 +226,12 @@ export default {
         }
     })
     this.getVoter()
-    this.getVoteEnds()
+    this.getEndTime()
     this.timer = setInterval(()=>{
       this.getVoter()
     },3000);
-    //判断投票是否结束
-    if (this.canVote) {
-      this.voteResultShow = false;
-    }else{
-      this.voteResultShow = true;
-      //投票结束后,结果
-      axios({
-        method:'get',
-        url:`${process.env.__SERVICE__}/proposal/api/statistics`
-      }).then((resp) => {
-        this.number.totalVote = resp.data.statistics.totalVoteGXCNumber; //投票总数
-        this.number.voteNumberTrue = (resp.data.statistics.totalVoteGXCNumberTrue/this.number.totalVote*100); //投true总数
-        this.number.voteNumberFalse = (resp.data.statistics.totalVoteGXCNumberFalse/this.number.totalVote*100); //投false总数
-        this.user.totalUserVote = resp.data.statistics.voteUserNumber; //投票总人数
-        this.user.voteUserTrue = (resp.data.statistics.voteUserNumberTrue/this.user.totalUserVote*100); //投true总人数
-        this.user.voteUserFalse = (resp.data.statistics.voteUserNumberFalse/this.user.totalUserVote*100); //投false总人数
-        console.log(resp.data);
-      }).catch(resp => {
-        console.log(this.$t("home.request")+resp.status+','+resp.statusText);
-        this.$message({
-          message:his.$t("home.statistics_request")+ resp.status+','+resp.statusText,
-          type: 'error'
-        });
-      });
-    }
+    this.getVoteResult()
   },
-
   methods: {
     output() {
       const combined = Array.from(arguments).map(arg => {
@@ -390,7 +395,7 @@ export default {
         });
       });
     },
-    getVoteEnds () {
+    getEndTime () {
       //投票结束的时间
       axios({
         method:'get',
@@ -404,6 +409,30 @@ export default {
           type: 'error'
         });
       });
+    },
+    //请求投票结果
+    getVoteResult(){
+      // 判断投票是否结束
+      if (!this.canVote) {
+        axios({
+          method:'get',
+          url:`${process.env.__SERVICE__}/proposal/api/statistics`
+        }).then((resp) => {
+          this.number.totalVote = resp.data.statistics.totalVoteGXCNumber; //投票总数
+          this.number.voteNumberTrue = (resp.data.statistics.totalVoteGXCNumberTrue/this.number.totalVote*100); //投true总数
+          this.number.voteNumberFalse = (resp.data.statistics.totalVoteGXCNumberFalse/this.number.totalVote*100); //投false总数
+          this.user.totalUserVote = resp.data.statistics.voteUserNumber; //投票总人数
+          this.user.voteUserTrue = (resp.data.statistics.voteUserNumberTrue/this.user.totalUserVote*100); //投true总人数
+          this.user.voteUserFalse = (resp.data.statistics.voteUserNumberFalse/this.user.totalUserVote*100); //投false总人数
+          console.log(resp.data);
+        }).catch(resp => {
+          console.log(this.$t("home.request")+resp.status+','+resp.statusText);
+          this.$message({
+            message:this.$t("home.statistics_request")+ resp.status+','+resp.statusText,
+            type: 'error'
+          });
+        });
+      }
     },
     //选择yes or no
     select(i) {
@@ -477,15 +506,18 @@ export default {
         width: 3rem;
         justify-content: space-around;
         border-radius: 16px;
+        cursor: pointer;
         .switch{
           background: rgb(123, 166, 255);
           color: #fff;
           width: 1.4rem;
           padding: 0 4px;
           text-align: center;
+          margin-right: 4px;
         }
         .not-switch{
           color: grey;
+          margin-right: 4px;
         }
       }
   }
@@ -588,13 +620,23 @@ export default {
         background-color: #FFF;
         border-radius: 10px;
         padding: 1.2rem;
-        overflow-y: scroll;
-        overflow-x: hidden;
-        max-height: 34rem;
+        .header-number{
+          display: flex;
+          align-items: center;
+          .totalVote{
+            background-color: rgb(123, 166, 255);
+            color: #FFF;
+            padding:0 9px;
+            border-radius: 30px;
+          }
+        }
         .numberText {
           padding: 0.8rem 2%;
         }
         ul {
+          overflow-y: scroll;
+          overflow-x: hidden;
+          max-height: 32rem;
           li {
             list-style: none;
             padding: 1rem 2%;
@@ -655,12 +697,14 @@ export default {
       // float: right;
       width: 30%;
       .inforText {
-        padding: 0.8rem 2%;
+        padding: 0 2%;
+        padding-left: 0px !important;
+        font-weight: 500;
       }
       .totalVote{
         background-color: rgb(123, 166, 255);
         color: #FFF;
-        padding:0 6px;
+        padding:0 9px;
         border-radius: 30px;
       }
       .right-fomat {
@@ -668,12 +712,34 @@ export default {
         background-color: #FFF;
         padding:1.2rem;
         border-radius: 10px;
+        .result-header{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          .header-left{
+            display:flex;
+            align-items:center;
+            width:72%
+          }
+        }
+        .information{
+          display: flex;
+          justify-content: space-between;
+          margin-top: 12px;
+          margin-bottom:12px;
+          font-size: 15px;
+        }
+        .el-button{
+          width: 30px;
+          height:30px;
+          border-radius: 15px;
+        }
       }
       .result {
         padding: 0 4%;
         padding-bottom: 1.2rem;
         .result-content {
-          margin-top: 1rem;
+          margin-top: 0.8rem;
         }
       }
     }
