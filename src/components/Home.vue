@@ -2,8 +2,8 @@
   <div class="home">
     <div class="header">
       <div style="display:flex;align-items:center">
-        <img class="logoImg" src="@/assets/gxchain.svg" alt="" />
-        <div>proposal</div>
+        <img class="logoImg" src="@/assets/GxchainProposal.svg" alt="" />
+        <!-- <div>proposal</div> -->
       </div>
       <div class="header-right">
         <el-button class="link-wallet" @click="login()" v-if="this.accountName===''">
@@ -408,8 +408,8 @@ export default {
           this.number.voteNumberFalse = Number.parseFloat(FalseVote/this.number.totalVote*100).toFixed(5);
         }
         this.user.totalUserVote = this.detailList.length;
-        this.user.voteUserTrue = this.resultTrueList.length/this.user.totalUserVote*100; //投true总人数
-        this.user.voteUserFalse = this.resultFalseList.length/this.user.totalUserVote*100; //投false总人数
+        this.user.voteUserTrue = Number.parseFloat(this.resultTrueList.length/this.user.totalUserVote*100).toFixed(2); //投true总人数
+        this.user.voteUserFalse = Number.parseFloat(this.resultFalseList.length/this.user.totalUserVote*100).toFixed(2); //投false总人数
       }).catch(resp => {
         console.log(this.$t("home.request")+resp.status+','+resp.statusText);
         this.$message({
