@@ -65,8 +65,8 @@
                 <div class="createdAt">{{ new Date(new Date(item.createdAt).getTime()).format('yyyy-MM-dd hh:mm:ss') }}</div>
               </div>
               <div class="agree-votes">
-                <div v-if="item.votingstate">{{$t("home.agree")}}</div>
-                <div v-else>{{$t("home.disagree")}}</div>
+                <div v-if="item.votingstate" style="color:#2CDFC0">{{$t("home.agree")}}</div>
+                <div v-else style="color:#FE898A">{{$t("home.disagree")}}</div>
               </div>
             </li>
           </ul>
@@ -99,7 +99,7 @@
           </div>
           <div class="result">
             <div class="result-content">
-              <div>{{$t('home.agree')}}</div>
+              <div style="color:#2CDFC0">{{$t('home.agree')}}</div>
               <div class="progress">
                 <div class="clip-background">
                     <div class='clip' :style="{width:this.number.voteNumberTrue+'%'}"></div>
@@ -108,7 +108,7 @@
               </div>
             </div>
             <div class="result-content">
-              <div>{{$t('home.disagree')}}</div>
+              <div style="color:#FE898A">{{$t('home.disagree')}}</div>
               <div class="progress">
                 <div class="clip-background">
                     <div class='clip' :style="{width:this.number.voteNumberFalse+'%'}"></div>
@@ -134,7 +134,7 @@
           </div>
           <div class="result">
             <div class="result-content">
-              <div>{{$t('home.agree')}}</div>
+              <div style="color:#2CDFC0">{{$t('home.agree')}}</div>
               <div class="progress">
                 <div class="clip-background">
                     <div class='clip' :style="{width:this.user.voteUserTrue+'%'}"></div>
@@ -143,7 +143,7 @@
               </div>
             </div>
             <div class="result-content">
-              <div>{{$t('home.disagree')}}</div>
+              <div style="color:#FE898A">{{$t('home.disagree')}}</div>
               <div class="progress">
                 <div class="clip-background">
                     <div class='clip' :style="{width:this.user.voteUserFalse+'%'}"></div>
