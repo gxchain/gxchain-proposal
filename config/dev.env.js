@@ -14,7 +14,7 @@ module.exports = (function() {
             port: 443,
             chainId: '"c2af30ef9340ff81fd61654295e98a1ff04b23189748f86727d0b26b40bb0ff4"'
           },
-          contractName: '"bjnvoting"',
+          contractName: '"votingtest"',
       }
   };
   return merge(prodEnv, {
@@ -27,6 +27,6 @@ module.exports = (function() {
         port: 443,
         chainId: '"c2af30ef9340ff81fd61654295e98a1ff04b23189748f86727d0b26b40bb0ff4"'
       },
-      contractName: '"bjnvoting"',
+      contractName: '"votingtest"',
   });
 })();
