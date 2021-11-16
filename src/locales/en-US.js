@@ -34,6 +34,7 @@ module.exports = {
     state_request:'Failed to request voting end time ',
     start_date:'Start date',
     end_date:'End date',
-    dint:'The results are subject to the final statistics'
+    dint:'The results are subject to the final statistics',
+    expend_more:'Click to expand more'
   }
 };

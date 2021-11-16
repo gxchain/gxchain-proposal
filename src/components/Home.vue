@@ -28,16 +28,78 @@
     <div class="section">
       <div class="section-left">
         <div class="block-item">
-          <h2 class="title">IP-82: Move yUSD funds to yDAI Vault</h2>
+          <h2 class="title">{{ $t("proposal_content.name") }}</h2>
           <div class="share-active">
             <div :class="this.canVote ? 'active' : 'disActive'">{{ $t("home.active") }}</div>
           </div>
-          <p>
-            REI Network链上治理模块，是未来REI Network链上用户以及团队治理的核心。任何持币者
-            都可通过Governance治理功能发起提案并向全社区公示。同时任何持有REI的用户都可对提案
-            进行投票，最终按照票数更多的结果去执行相关治理方案。REI Network 将会打造一条更自治、
-            更高效的新型公链。
-          </p>
+          <h4>[{{ $t("proposal_content.background.title") }}]</h4>
+          <p>{{ $t("proposal_content.background.stage1") }}</p>
+          <p>{{ $t("proposal_content.background.stage2") }}</p>
+          <h4>[{{ $t("proposal_content.substance.content1.title") }}]</h4>
+          <h5>{{ $t("proposal_content.substance.content1.change_name") }}</h5>
+          <p>{{ $t("proposal_content.substance.content1.stage1") }}</p>
+          <p>{{ $t("proposal_content.substance.content1.stage2") }}</p>
+          <h5>{{ $t("proposal_content.substance.content1.rei_mean") }}</h5>
+          <p>{{ $t("proposal_content.substance.content1.stage3") }}</p>
+          <p>{{ $t("proposal_content.substance.content1.stage4") }}</p>
+          <h4>[{{ $t("proposal_content.substance.content2.title") }}]</h4>
+          <p>{{ $t("proposal_content.substance.content2.stage1") }}</p>
+          <p>{{ $t("proposal_content.substance.content2.stage2") }}</p>
+          <p>{{ $t("proposal_content.substance.content2.stage3") }}</p>
+          <h4>{{ $t("proposal_content.substance.content2.steps1") }}</h4>
+          <p>{{ $t("proposal_content.substance.content2.split") }}</p>
+          <h4>{{ $t("proposal_content.substance.content2.steps2") }}</h4>
+          <p>{{ $t("proposal_content.substance.content2.upgrade") }}</p>
+          <h4>{{ $t("proposal_content.substance.content2.steps3") }}</h4>
+          <p>{{ $t("proposal_content.substance.content2.govern") }}</p>
+          <h4>{{ $t("proposal_content.substance.content2.steps4") }}</h4>
+          <h5>{{ $t("proposal_content.substance.content2.total") }}</h5>
+          <ul class="four-step">
+            <li>{{ $t("proposal_content.substance.content2.port1") }}</li>
+            <li>
+              {{ $t("proposal_content.substance.content2.port2") }}
+              <ul>
+                <li>{{ $t("proposal_content.substance.content2.spread1") }}</li>
+                <li>{{ $t("proposal_content.substance.content2.spread2") }}</li>
+                <li>{{ $t("proposal_content.substance.content2.spread3") }}</li>
+              </ul>
+            </li>
+          </ul>
+          <img class="image" src="@/assets/image.png" alt="">
+          <h4>{{ $t("proposal_content.substance.content2.steps5") }}</h4>
+          <p>{{ $t("proposal_content.substance.content2.detailed") }}</p>
+          <div class="div-content">{{ $t("proposal_content.substance.content2.plan1") }}
+            <div>{{ $t("proposal_content.substance.content2.consult") }}</div>
+          </div>
+          <div class="div-content">{{ $t("proposal_content.substance.content2.plan2") }}
+            <div>{{ $t("proposal_content.substance.content2.deposit") }}</div>
+            <div>{{ $t("proposal_content.substance.content2.term_a") }}</div>
+            <div>{{ $t("proposal_content.substance.content2.term_b") }}</div>
+          </div>
+          <div class="div-content">{{ $t("proposal_content.substance.content2.plan3") }}
+            <div>{{ $t("proposal_content.substance.content2.campaign") }}</div>
+          </div>
+          <h4>{{ $t("proposal_content.substance.content2.steps6") }}</h4>
+          <p>{{ $t("proposal_content.substance.content2.rei_gxc") }}</p>
+          <h4>[{{ $t("proposal_content.substance.content3.title") }}]</h4>
+          <h5>{{ $t("proposal_content.substance.content3.construct.head") }}</h5>
+          <p>{{ $t("proposal_content.substance.content3.construct.stage1") }}</p>
+          <p>{{ $t("proposal_content.substance.content3.construct.stage2") }}</p>
+          <p>{{ $t("proposal_content.substance.content3.construct.stage3") }}</p>
+          <p>{{ $t("proposal_content.substance.content3.construct.stage4") }}</p>
+          <h4>{{ $t("proposal_content.substance.content3.worth.head") }}</h4>
+          <p>{{ $t("proposal_content.substance.content3.worth.stage1") }}</p>
+          <p>{{ $t("proposal_content.substance.content3.worth.stage2") }}</p>
+          <p>{{ $t("proposal_content.substance.content3.worth.stage3") }}</p>
+          <p>{{ $t("proposal_content.substance.content3.worth.stage4") }}</p>
+          <h4>{{ $t("proposal_content.substance.content3.extra.head") }}</h4>
+          <p>{{ $t("proposal_content.substance.content3.extra.stage1") }}</p>
+          <p>{{ $t("proposal_content.substance.content3.extra.stage2") }}</p>
+          <p>{{ $t("proposal_content.substance.content3.extra.stage3") }}</p>
+          <p>{{ $t("proposal_content.substance.content3.extra.stage4") }}</p>
+          <h5>{{ $t("proposal_content.substance.content3.reality") }}</h5>
+          <p>{{$t("proposal_content.substance.content3.stage_end") }}</p>
+          <h5>{{ $t("proposal_content.substance.content3.ending") }}</h5>
         </div>
         <div class="vote">
           <div class="voteText">
@@ -56,6 +118,7 @@
           </div>
           <ul>
             <li v-for="(item, index) in detailList" :key="index" style="align-items:center">
+              <div class="detail" v-if="index<moreSteps">
               <div class="vote-head">
                 <account-image :account="item.userName" :size="15" style="margin-right:6px"></account-image>
                 <div>{{ item.userName }}</div>
@@ -68,7 +131,9 @@
                 <div v-if="item.votingstate" style="color:#2CDFC0">{{$t("home.agree")}}</div>
                 <div v-else style="color:#FE898A">{{$t("home.disagree")}}</div>
               </div>
+              </div>
             </li>
+            <el-button class="expendMore" @click="expendMore()" v-if="this.resultSum>this.moreSteps">{{$t("home.expend_more")}}</el-button>
           </ul>
         </div>
       </div>
@@ -184,6 +249,7 @@ export default {
       loading:false,
       network:process.env.network,
       contractName:process.env.contractName,
+      resultSum:0,
       number: {
           totalVote: 0,
           voteNumberTrue: 0,
@@ -196,10 +262,10 @@ export default {
       },
       canVote:true,
       stopTime:'',
-      startTime:''
+      startTime:'',
+      moreSteps:10,
+      votingstate:true
     };
-  },
-  computed: {
   },
   mounted:function(){
     var _language = localStorage.language
@@ -217,10 +283,12 @@ export default {
           this.accountName = account.name
         }
     })
+    console.log('12',this.accountName)
     this.getVoter()
     this.getEndTime()
     this.timer = setInterval(()=>{
       this.getVoter()
+      this.getNoStopVote()
     },3000);
     this.getVoteResult()
     this.getStartTime()
@@ -269,27 +337,51 @@ export default {
         this.output(err)
       }
     },
+    //点击展开更多
+    expendMore(){
+      this.moreSteps+=50;
+       axios({
+        method:'get',
+        url:`${process.env.__SERVICE__}/proposal/api/voter`,
+        params:{
+          limit:this.moreSteps
+        }
+      }).then((resp)=>{
+        this.resultSum = resp.data.resultsSum;
+      }).catch(resp => {
+        console.log(this.$t("home.request")+resp.status+','+resp.statusText);
+        this.$message({
+          message:this.$t("home.voter_request")+resp.status+','+resp.statusText,
+          type: 'error'
+        });
+      });
+    },
     //显示下拉框
     signOut(){
       this.signShow = !this.signShow
     },
+    getvoted(){
+      axios({
+        method:'get',
+        url:`${process.env.__SERVICE__}/proposal/api/findone`,
+        params:{
+          name:this.accountName
+        }
+      }).then((resp)=>{
+        this.votingstate = resp.data.votingstate
+      }).catch(resp => {
+        console.log(this.$t("home.request")+resp.status+','+resp.statusText);
+        this.$message({
+          message:this.$t("home.voter_request")+resp.status+','+resp.statusText,
+          type: 'error'
+        });
+      });
+    },
     vote(){
       let flag = false;
-      let flagTrue = false;
-      let flagFalse= false;
       for(var i = 0; i < this.detailList.length; i++){
         if(this.accountName === this.detailList[i].userName){
           flag = true;
-        }
-      }
-      for(var j = 0; j < this.resultTrueList.length; j++){
-        if(this.accountName === this.resultTrueList[j].userName){
-          flagTrue = true;
-        }
-      }
-      for(var k = 0; k < this.resultFalseList.length; k++){
-        if(this.accountName === this.resultFalseList[k].userName){
-          flagFalse = true;
         }
       }
       if(this.accountName==''){
@@ -299,8 +391,8 @@ export default {
           });
       }else{
         this.loading = true
-        if(this.index === 1){
-          if(!flagTrue){
+        if(!this.votingstate){
+          if(this.index === 1){
             this.$alert(!flag?this.$t("home.support"):this.$t("home.change_support"), this.$t("home.vote"), {
               confirmButtonText: this.$t("home.yes"),
               callback: (action) => {
@@ -312,7 +404,6 @@ export default {
                       message: this.$t("home.vote_success"),
                       type: 'success'
                     });
-                    this.getVoter();
                   }).catch(error => {
                     this.output(error)
                     this.loading = false;
@@ -321,6 +412,8 @@ export default {
                       type: 'error'
                     });
                   })
+                  this.index = 0;
+                  this.disabled = true;
                 }else{
                   this.loading = false;
                 }
@@ -328,25 +421,24 @@ export default {
             })
           }else{
             this.$message({
-              message:this.$t("home.cast_agree"),
+              message:this.$t("home.cast_disagree"),
               type: 'error'
             });
             this.loading = false;
           }
         }else{
-          if(!flagFalse){
+          if(this.index === 2){
             this.$alert(!flag?this.$t("home.no_support"):this.$t("home.change_noSupport"), this.$t("home.vote"), {
               confirmButtonText: this.$t("home.yes"),
               callback: (action) => {
                 if (action === 'confirm') {
                   gxc.callContract(this.contractName, 'vote', {approve:false}, '', true).then(trx => {
                     this.output(`call contract success`, trx)
+                    this.loading = false;
                     this.$message({
                       message: this.$t("home.vote_success"),
                       type: 'success'
                     });
-                    this.getVoter();
-                    this.loading = false;
                   }).catch(error => {
                     this.output(error)
                     this.$message({
@@ -355,6 +447,8 @@ export default {
                     });
                     this.loading = false
                   })
+                  this.index = 0;
+                  this.disabled = true;
                 }else{
                   this.loading = false
                 }
@@ -362,7 +456,7 @@ export default {
             })
           }else{
             this.$message({
-              message:this.$t("home.cast_disagree"),
+              message:this.$t("home.cast_agree"),
               type: 'error'
             });
             this.loading = false;
@@ -378,8 +472,6 @@ export default {
         url:`${process.env.__SERVICE__}/proposal/api/voter`
       }).then((resp)=>{
         this.detailList = resp.data.result;
-        this.resultFalseList = resp.data.resultFalse;
-        this.resultTrueList = resp.data.resultTrue;
       }).catch(resp => {
         console.log(this.$t("home.request")+resp.status+','+resp.statusText);
         this.$message({
@@ -392,24 +484,14 @@ export default {
     getNoStopVote () {
       axios({
         method:'get',
-        url:`${process.env.__SERVICE__}/proposal/api/voter`
+        url:`${process.env.__SERVICE__}/proposal/api/voter_sum`
       }).then((resp)=>{
-        for(var i = 0; i < this.detailList.length; i++){
-          this.number.totalVote += this.detailList[i].voteGXCNumberHourly;
-        }
-        let TrueVote = 0;
-        for(var j = 0; j < this.resultTrueList.length; j++){
-          TrueVote += this.resultTrueList[j].voteGXCNumberHourly;
-          this.number.voteNumberTrue = (TrueVote/this.number.totalVote*100).toFixed(5);
-        }
-        let FalseVote = 0;
-        for(var k = 0; k < this.resultFalseList.length; k++){
-          FalseVote += this.resultFalseList[k].voteGXCNumberHourly;
-          this.number.voteNumberFalse = Number.parseFloat(FalseVote/this.number.totalVote*100).toFixed(5);
-        }
-        this.user.totalUserVote = this.detailList.length;
-        this.user.voteUserTrue = Number.parseFloat(this.resultTrueList.length/this.user.totalUserVote*100).toFixed(2); //投true总人数
-        this.user.voteUserFalse = Number.parseFloat(this.resultFalseList.length/this.user.totalUserVote*100).toFixed(2); //投false总人数
+        this.number.totalVote = resp.data.voterGXCSum;
+        this.number.voteNumberTrue = (resp.data.voterGXCTrueSum/this.number.totalVote*100).toFixed(5);
+        this.number.voteNumberFalse = Number.parseFloat(resp.data.voterGXCFalseSum/this.number.totalVote*100).toFixed(5);
+        this.user.totalUserVote = resp.data.voterNum;
+        this.user.voteUserTrue = Number.parseFloat(resp.data.voterTrueNum/this.user.totalUserVote*100).toFixed(2); //投true总人数
+        this.user.voteUserFalse = Number.parseFloat(resp.data.voterFalseNum/this.user.totalUserVote*100).toFixed(2); //投false总人数
       }).catch(resp => {
         console.log(this.$t("home.request")+resp.status+','+resp.statusText);
         this.$message({
@@ -479,6 +561,7 @@ export default {
     select(i) {
       this.disabled=false
       this.index = i;
+      this.getvoted()
     },
     //切换语言
     swicthLanguage(index) {
@@ -576,9 +659,43 @@ export default {
         background-color: #FFF;
         padding:1.2rem;
         border-radius: 10px;
+        p{
+          margin-top: 20px;
+          font-size: 14px;
+          line-height: 28px;
+        }
+        .div-content{
+          margin-top: 20px;
+          font-size: 14px;
+          line-height: 28px;
+          div{
+            padding:0 20px;
+          }
+        }
+        h4{
+          margin-top: 20px;
+        }
+        h5{
+          margin-top: 16px;
+        }
         h2{
           border-bottom: 1px rgb(163, 166, 196) dashed;
-          padding-bottom: 1.2rem;
+          padding-bottom:1.6rem;
+          padding-top:1.2rem;
+        }
+        .image{
+          width: 100%;
+        }
+        .four-step{
+          padding:10px 20px;
+          font-size: 14px;
+          line-height: 28px;
+          ul{
+            padding:0 20px;
+            li{
+              list-style-type: circle;
+            }
+          }
         }
         .share-active {
         margin-top: 1rem;
@@ -675,15 +792,14 @@ export default {
           padding: 0.8rem 2%;
         }
         ul {
-          overflow-y: scroll;
-          overflow-x: hidden;
-          max-height: 32rem;
-          li {
+          li{
+           .detail{
+              padding:1rem 2% 0.6rem 2%;
+              border-bottom: 1px rgb(178, 181, 205) solid;
+              display: flex;
+              justify-content: space-between;
+            }
             list-style: none;
-            padding:1rem 2% 0.6rem 2%;
-            border-bottom: 1px rgb(178, 181, 205) solid;
-            display: flex;
-            justify-content: space-between;
             .vote-head {
               display: flex;
               align-items: center;
@@ -702,6 +818,22 @@ export default {
               width: 50px;
               text-align: right;
             }
+          }
+          .expendMore{
+            width: 100%;
+            text-align: center;
+            border: none;
+            padding: 20px 0;
+            color: rgb(123, 166, 255);
+            background-color: #fff;
+          }
+          .endmore{
+            width: 100%;
+            text-align: center;
+            border: none;
+            padding: 20px 0;
+            color: grey;
+            background-color: #fff;
           }
         }
         .unfold-hide {
