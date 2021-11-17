@@ -101,7 +101,7 @@
           <p>{{$t("proposal_content.substance.content3.stage_end") }}</p>
           <h5>{{ $t("proposal_content.substance.content3.ending") }}</h5>
         </div>
-        <div class="vote">
+        <div class="vote" v-if="this.canVote">
           <div class="voteText">
             <div>{{ $t("home.vote") }}</div>
           </div>
