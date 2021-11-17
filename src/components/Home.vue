@@ -339,7 +339,7 @@ export default {
     },
     //点击展开更多
     expendMore(){
-      this.moreSteps+=50;
+      this.moreSteps+=20;
        axios({
         method:'get',
         url:`${process.env.__SERVICE__}/proposal/api/voter`,
@@ -472,6 +472,7 @@ export default {
         url:`${process.env.__SERVICE__}/proposal/api/voter`
       }).then((resp)=>{
         this.detailList = resp.data.result;
+        this.resultSum = resp.data.resultsSum;
       }).catch(resp => {
         console.log(this.$t("home.request")+resp.status+','+resp.statusText);
         this.$message({
