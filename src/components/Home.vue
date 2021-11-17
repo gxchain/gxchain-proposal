@@ -281,9 +281,9 @@ export default {
         if (gscatter.identity) {
           let account = gscatter.identity.accounts.find(x => x.blockchain === 'gxc')
           this.accountName = account.name
+          this.getvoted();
         }
     })
-    console.log('12',this.accountName)
     this.getVoter()
     this.getEndTime()
     this.timer = setInterval(()=>{
@@ -369,6 +369,7 @@ export default {
         }
       }).then((resp)=>{
         this.votingstate = resp.data.votingstate
+        console.log(resp.data)
       }).catch(resp => {
         console.log(this.$t("home.request")+resp.status+','+resp.statusText);
         this.$message({
@@ -391,8 +392,8 @@ export default {
           });
       }else{
         this.loading = true
-        if(!this.votingstate){
-          if(this.index === 1){
+        if(this.index === 1){
+          if(this.votingstate!=true){
             this.$alert(!flag?this.$t("home.support"):this.$t("home.change_support"), this.$t("home.vote"), {
               confirmButtonText: this.$t("home.yes"),
               callback: (action) => {
@@ -421,13 +422,13 @@ export default {
             })
           }else{
             this.$message({
-              message:this.$t("home.cast_disagree"),
+              message:this.$t("home.cast_agree"),
               type: 'error'
             });
             this.loading = false;
           }
         }else{
-          if(this.index === 2){
+          if(this.votingstate!=false){
             this.$alert(!flag?this.$t("home.no_support"):this.$t("home.change_noSupport"), this.$t("home.vote"), {
               confirmButtonText: this.$t("home.yes"),
               callback: (action) => {
@@ -456,7 +457,7 @@ export default {
             })
           }else{
             this.$message({
-              message:this.$t("home.cast_agree"),
+              message:this.$t("home.cast_disagree"),
               type: 'error'
             });
             this.loading = false;
