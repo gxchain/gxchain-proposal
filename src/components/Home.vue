@@ -288,9 +288,7 @@ export default {
     this.getEndTime()
     this.timer = setInterval(()=>{
       this.getVoter()
-      this.getNoStopVote()
     },3000);
-    this.getVoteResult()
     this.getStartTime()
   },
   methods: {
@@ -303,7 +301,6 @@ export default {
         }
       })
       console.log(...arguments)
-      this.logs.push({ time: new Date(), text: combined.join('\n--------------\n') })
     },
     async login(){
       if(!GScatterJS.gscatter.isExtension){
@@ -332,6 +329,8 @@ export default {
           message:this.$t("home.signed"),
             type: 'success'
           });
+          this.index = 0;
+          this.disabled = true;
       } catch (err) {
         // no identity found
         this.output(err)
@@ -509,6 +508,7 @@ export default {
         url:`${process.env.__SERVICE__}/proposal/api/state`
       }).then((resp)=>{
         this.canVote = resp.data.canVote;
+        this.getVoteResult();
       }).catch(resp => {
         console.log(this.$t("home.request") +resp.status+','+resp.statusText);
         this.$message({
@@ -557,6 +557,9 @@ export default {
         });
       }else{
         this.getNoStopVote()
+        this.timer = setInterval(()=>{
+            this.getNoStopVote()
+        },3000);
       }
     },
     //选择yes or no
