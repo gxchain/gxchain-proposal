@@ -110,6 +110,7 @@
             <el-button @click="select(2)" :class="index ==2?'use':'notuse'" >{{ $t("home.disagree") }}</el-button>
             <el-button :disabled="disabled" :class="disabled?'disabled-button':'no-disabled'" @click="vote()" :loading="loading">{{$t("home.yes")}}</el-button>
           </div>
+          <div class="vote-rules">{{ $t("home.tips") }}</div>
         </div>
         <div class="vote-number">
           <div class="header-number">
@@ -371,10 +372,6 @@ export default {
         console.log(resp.data)
       }).catch(resp => {
         console.log(this.$t("home.request")+resp.status+','+resp.statusText);
-        this.$message({
-          message:this.$t("home.voter_request")+resp.status+','+resp.statusText,
-          type: 'error'
-        });
       });
     },
     vote(){
@@ -729,7 +726,16 @@ export default {
         border-radius: 10px;
         .voteText {
           padding: 0.8rem 2%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
         }
+        .vote-rules{
+            font-size: 12px;
+            color:rgb(188, 189, 193);
+            text-align: center;
+            margin-top: 12px;
+          }
         margin-top: 1.6rem;
         .voting-button{
           width:100%;
