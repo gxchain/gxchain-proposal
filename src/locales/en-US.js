@@ -39,80 +39,80 @@ module.exports = {
     tips:'Tip: Participating in voting will not lock GXC, we will count all the addresses participating in the voting at the snapshot height, and the GXC of the account balance and the GXC of the node voting Stake will be counted.'
   },
   proposal_content: {
-    name:'从GXChain2.0 到REI Network的治理提案11.15',
-    background:{
-      title:'议案背景',
-      stage1:'2017年 GXChain（公信链）主网上线，旨在打造可信数据的价值网络，在短短4年时间内 GXChain（公信链）不仅获得了国内外资本以及市场的认可，也获得了包括中国银联在内的数十家企业的大力支持，达成了合作关系。',
-      stage2:'四年以来，区块链行业发生了翻天覆地的变化，GXChain（公信链）也从未停下前进的脚步，而2020年 DeFi 的革命性变化给区块链行业带来历史前所未有之大变革，去中心化金融的锁仓金额、用户量级，链上账户都呈指数级上升。而原来为可信数据打造的公信链，应对这样的时局变得需要有画龙点睛般的转型和补足，所以我们于 2020 年 8 月就决定拥抱变革，拥抱 DeFi，怀着合作心态再出发。而在一年后的今天，终于迎来变革路上历史性的一刻，我们将再次踏上新的征程，去往我们的星辰大海。'
+    name: 'Governance Proposal: From GXChain 2.0 to REI Network',
+    background: {
+        title: 'Background',
+        stage1: 'GXChain mainnet was launched in 2017, aiming to build a data Internet of value. In just four years, GXChain has not only gained recognition from the top capitals as well as the market but also gained strong support from dozens of enterprises, including UnionPay, to reach a cooperative relationship.',
+        stage2: 'In the past four years, the blockchain industry has undergone radical changes, and GXChain has never stopped moving forward. The revolutionary changes of DeFi in 2020 brought unprecedented changes to the blockchain industry, with the number of locked positions, the users, and on-chain accounts in decentralized finance increasing exponentially.In August 2020, we decided to embrace the change of DeFi, and start again with a collaborative mindset. And now, one year later, we have finally reached a historic moment on the road to change, and we will once again embark on a new journey in the crypto universe.'
     },
-    substance:{
-      content1:{
-        title:'其一: “GXChain2.0”更名为“REI Network”',
-        change_name:'更名为“REI Network”',
-        stage1:'众所周知，GXChain2.0 的架构设计和 Roadmap 推进从 2020 年 8 月伊始，早已进入实际的开发进程。从概念提出，路线图的确立，再到实际进入开发阶段，历时已经一年有余，目前 GXChain2.0 开发进展顺利，GXChain2.0 的测试网已经于 2021 年 7 月 14 日正式上线，平稳运行并且经过了各项测试，与此同时，GXChain2.0 主网上线之前最为核心的两个板块功能，开发也十分顺利。8 月引入 slashing 模块，10 月在技术层面完成免费的经济模型设计，也就是说 GXChain2.0 离我们越来越近了，按照现在的开发进度，GXChain2.0 的主网将会在预计中的 12 月份正式上线。',
-        stage2:'届时，GXChain2.0 将会在技术层面，在代码层面彻底完成升级和重构，成为一条全新的区块链，成为一条兼容 EVM 的以太坊平行链，这是继 GXChain 于 2017 年 6 月 15 日首次上线主网之后，时隔四年最大的更新和迭代。因此，GXChain 2.0 不仅是一次全新的技术升级和迭代，还是公链定位和所属板块的全新迁移，我们欣然看到 GXChain2.0 将会被赋予全新的历史使命，所以我们认为 GXChain 的名字需要有更深刻的新命名，来以适应团队和未来规划中快速发展的需要，所以，团队决定将在主网上线之前将 GXChain2.0 赋予之一个全新的名字——REI Network。',
-        rei_mean:'REI 的含义以及由来',
-        stage3:'REI 取自 Rapid(快速的)、economical(经济的)、innovative(革新的)前三个单词的首写字母，三个字母分别对应 REI Network 的三个重要特性。REI还可以翻译为 0，也即为最初的意思，代表 REI 代替 GXC 的使命再重新开始，同时 0 也代表着免费和经济，和 GXChain2.0 的根本特性非常契合。',
-        stage4:'REI Network是经过团队层层筛选后确定的名字，它带有浓厚的使命感，它是 GXChain 的历史初心带着对未来新的愿景的化身。改名也并不是目的，而是希望以一个全新的面貌去面对未知的挑战，它代表着我们改革的决心和未来，REI 会带着我们的期望再次向前。',
-      },
-      content2:{
-        title:'其二 : 经济模型更改',
-        stage1:'现有的 GXC 是基于 GXChain 发行的核心资产，而如果本提案通过，我们将正式启动 REI Network 主网，同时 GXC 也将通过跨链的方式映射到 REI Network 的主网中。',
-        stage2:'REI Network 主网是一个全新的系统，将兼容以太坊 EVM，并对支持企业和开发者更为友好。通过底层代码的优化，同时兼以其前身 GXChain 4 年的公链模式和用户建设的探索，而建立的符合当前区块链以及公链板块发展实际需求，且轻量而免费的应用级新型公链。',
-        stage3:'新型的 REI Network 公链未来生态发展的规模很可能会超出了之前的预期，对核心资产的需求以及实际使用会随之大大增加。新的公链需要更多的新鲜血液，保证 REI Network 的发展和推广。REI Network  对于当前的行业热点和对于 DeFi，GameFi，NFTs等板块都有着良好的解决方案，一定程度上会成为接下来行业竞争的热点和焦点，因此 GXChain 基金会为了 REI Network 能更好的在未来可以预见的区块链行业生态中抓住更好的机会，将实行如下计划——',
-        steps1:'1. 代币等比例拆分',
-        split:'主网的核心资产从 GXC 转化成为 REI 的过程中，将会遵循 1:10 的拆分规则，因此 REI 的最大供应量将会达到 10 亿枚。',
-        steps2:'2. 团队未解锁部分升级为“生态基金”',
-        upgrade:'团队拿出所有未解锁的 2500 万枚作为生态基金，其中 500 万用于节点奖励，500 万用于市场推广，1500 万用于激励开发者和生态系统。',
-        steps3:'3. 新增治理功能',
-        govern:'上线链上治理模块，该治理功能和此前的有所不同，新的治理功能将会区别于已有的由理事会和节点成员投票的模式，而会成为每一位持币者都可以进行投票的“直接民主”模式，REI Network 链上的改动或者社区的建议均可通过提案的方式在社区进行公示，而用户可用 REI 进行投票，以达到“人人皆可治理公链”的目的，同时增加 REI 的治理价值。也是更深刻意义上的“社区共治”的功能基础。',
-        steps4:'4. 拆分后 REI 分配情况一览',
-        total:'拆分后代币总量：10 亿',
-        port1:'7.5 亿：已流通 （包括 staking 的1-1.5 亿枚）',
-        port2:'2.5 亿：开发者生态',
-        spread1:'1.5 亿 激励开发者',
-        spread2:'0.5 亿 市场推广',
-        spread3:'0.5 亿 节点奖励',
-        steps5:'5. GXChain1.0 到 GXChain2.0（REI）的节点迁移方案',
-        detailed:'基于 GXChain1.0 的公信节点，是发轫于2018年开始的初次选举，是来自于GXChain社区的自治，也是GXChain社区有强大生命力和自组织能力的表现。事实证明在此后的若干个周期和迭代中，公信节点都完成了保护公链底层安全和稳定的阶段性任务，因此未来我们在 REI Network 上依然会延续超级节点的竞选模式，具体的执行方案大致如下：',
-        plan1:'1) 开放 REI-GXC 主链代币之间的兑换',
-        consult:'具体兑换方式请参考下文《6. REI 和 GXC 之间的代币兑换方案》',
-        plan2:'2) 保护性的节点托管',
-        deposit:'在原生代币转移的过程之中，在网络环境不稳定的情况下官方会进行保护性的托管，即在规定的时间之内将21个超级节点由官方的节 点暂时性的托管。需要托管的情况需要满足以下两个条件：',
-        term_a:'a.该提案已经在社区投票下通过，且 GXChain 和 REI Network 之间的新旧链上资产的兑换环节已经开始进行。',
-        term_b:'b.多数的主链资产已经跨链到 REI Network，且由此产生潜在影响原公链稳定和安全因素的情况下。',
-        plan3:'3) REI Network 的超级节点竞选',
-        campaign:'在开始迁移之时，REI Network 的超级节点竞选同时开展，欢迎更多有实力，有影响力，有号召力的加密主题和社区成员来成为 REI Network 的超级节点竞选。',
-        steps6:'6. REI 和 GXC 之间的代币兑换方案',
-        rei_gxc:'在本提案通过之后，REI 和 GXC 之间的代币兑换机制，会在智能合约中每24小时会处理一次代币的兑换，在该时间段内集中处理 REI-GXC 主链代币之间的兑换，该功能作为基础性的兑换功能，会在较长的一段时间内保留其存在。'
-      },
-      content3:{
-        title:'在新的经济模型下，REI Network 的未来路线',
-        construct:{
-          head:'团队持币为“0”，回馈生态建设',
-          stage1:'公链发展的护城河是其生态的繁荣，而开发者是公链生态发展的基础，公链生态的发展需要开发者们的簇拥和支持。因此我们需要吸引更多的开发者加入生态中，来壮大公链本身。与很多的 ETH 杀手不同，REI Network 将通过高性能、免费、轻量的特点去承接 ETH 溢出的商业价值，后续 REI Network 会接入 EVM，从多方面出发形成专属于 REI Network 的生态链。',
-          stage2:'GXC 自 2017 年开始，每年解锁 500 万用于 GXChain 团队的运营和市场推广，截止今年还剩余 2500 万枚 GXC 未解锁，而现在为表达重建生态体系之决心，本次团队将未解锁的 2.5 亿 REI（GXC 拆分后数量）全部用于激励 REI Network 中的生态贡献者以及开发者，方式包括且不限于给予优秀开发者的奖励、优质项目的投资、为生态作出重大贡献者的用户奖励等等，团队的持币数量也由 25% 变为 0%。',
-          stage3:'生态基金将随着着生态的发展逐步释放，在相当的时间里并不会直接流通于市场，短期内并不会造成市场流通量的增加，继而对于代币价格形成较大压力，而相反会等价地转化为对于生态建设的激励。这部分对于开发者的激励，会吸引大量的开发者，REI Network 的生态也会随之更加繁荣，继而形成生态和 REI 主链之间高效良性的循环。',
-          stage4:'这只是 REI Network 的开始，而对于公链生态的建立还远远不会结束。我们将把更多的注意力转移到开发者身上，只有庞大的开发者群体，才能造就更伟大的公链生态。',
+    substance: {
+        content1: {
+            title: 'Section 1 of the proposal: "GXChain 2.0" is renamed "REI Network"',
+            change_name: 'Why do we name REI Network?',
+            stage1: 'It is known that the architectural design and roadmap of GXChain 2.0 have been in the actual development process since August 2020. The development of GXChain 2.0 is progressing well, with the GXChain 2.0 test network has launched on 14 July 2021, running smoothly and having undergone various tests.The slashing module was introduced in August and the free economic model was technically completed in October, which means that GXChain 2.0 is getting closer and closer to us. According to the current development schedule, the mainnet of GXChain 2.0 is expected to go live in December.',
+            stage2: 'By then, GXChain 2.0 will be completely upgraded and refactored at the technical level and at the code level, becoming a brand new blockchain and an EVM-compatible Ethereum parallel chain, which is the biggest update and iteration after four years since GXChain first mainnet was published on June 15, 2017.As such, GXChain 2.0 is not only a new technical upgrade and iteration but also a new leap in positioning. We are pleased to see that GXChain 2.0 will be given a new historical mission, so we believe that the name of GXChain needs a more profound new naming to accommodate the team and the rapid development in future planning, so the team has decided to GXChain 2.0 be given a new name - REI Network - before the mainnet launched.',
+            rei_mean: 'The meaning and origin of REI',
+            stage3: 'REI is derived from the first three initials of the words Rapid, Economical, and Innovative, which correspond to the three important features of the REI Network. It also stands for free and economical, which fits in perfectly with the fundamental features of GXChain 2.0.',
+            stage4: 'REI is a name that has been selected by the team with a strong sense of mission, it is the embodiment of GXC`s historical beginnings with a new vision for the future. Nor is the name change an end in itself, but rather a desire to face the unknown challenges. It represents our determination to change thoroughly, and REI will move forward again with our aspirations.'
         },
-        worth:{
-          head:'回馈社区，实现价值回归',
-          stage1:'随着 DeFi，GameFi，NFTs 等等链上新玩法的爆炸式出现，让一大批只会在 Cefi 中交易买卖的用户成功开始像链上转化，我们可以预见在不久的未来，更多的币圈用户会开始向链上用户转化，他们将在链上完成交易、收藏、娱乐、甚至生活，这是区块链发展带来的不可逆转的趋势。',
-          stage2:'这也是我们拆分 GXC 的最终目的，之后我们将继续强大链上的生态，在奔涌的区块链行业中找到自己的路，REI Network 是通过底层代码的优化，同时兼以其前身 GXChain 4 年的公链模式和用户建设的探索，而建立的符合当前区块链以及公链板块发展实际需求的新型公链，是一条具有能够承接行业数亿级用户能力的新型公链。4 年来，我们最初的目标从未改变。我们所积累下来的伤痕是我们一直向前的无畏勋章。',
-          stage3:'同时 REI Network 将是一条更为用户考虑的国际公链！我们注重公链的性能提升，也将更注重用户的体验与价值。市场推广所分配的500万将由团队部分支出，其中除开市场推广，更重要的是也包含回馈社区的部分，对生态作出重要贡献的用户和团队，更会给予一定奖励和支持。',
-          stage4:'REI Network 也将上线链上治理模块，任何人都可通过治理功能向社区发起提案，将用户的意见放在首位听取大众的意见是我们需要更加努力的地方。我相信在能够看见的未来，会有更多的人和 REI Network 站在一起，去共同分享时代的红利 ！',
+        content2: {
+            title: 'Section 2 of the proposal: The upgrade of Tokenomic',
+            stage1: 'The existing GXC is a native coin issued on the GXChain, and during this year, GXChain will officially launch the GXChain 2.0 mainnet, while GXC will also be mapped to the GXChain 2.0 main network through a cross-chain approach.',
+            stage2: 'The GXChain 2.0 main network is a new system that will be compatible with Ethereum and will be more friendly to supporting enterprises and developers, lightweight, and quasi-free new application-level public chain. Through the optimization of the underlying code and the 4-year exploration of the public chain model and user building of its predecessor GXChain, the new public chain is built to meet the actual needs of the current blockchain and public chain segment development.',
+            stage3: 'The new public chain GXChain 2.0  is likely to grow beyond the expected scale of the future ecosystem, and the demand for and use of coins will increase significantly. For this reason, the new public chain needs more fresh blood to ensure the development and promotion of GXChain 2.0. REI Network has a good solution for the current industry hotspots and for DeFi, GameFi, NFTs, and other sectors, and will become the hotspot and focus of the next industry competition to a certain extent. To make sure that REI network can better seize the opportunities in the foreseeable blockchain industry ecosystem in the future, the GXChain Foundation will implement the following plans -',
+            steps1: '1. Coin split in a fixed proportion',
+            split: 'The conversion of the core asset from GXC to REI on the main network will follow a 1:10 split proportion, so the maximum supply of REI will be 1 billion, once the proposal is approved.',
+            steps2: '2. The unlocked part of the team is upgraded to ecosystem fund',
+            upgrade: 'The team took out all the unlocked 25 million pieces as the ecosystem funds, of which 5 million were used for node rewards, 5 million for marketing, and 15 million for incentivizing developers and the ecosystem.',
+            steps3: '3. New governance function launched',
+            govern: 'The new governance function will be different from the previous one. The new governance function support will be different from the existing model of voting by the board of directors and node members but will become a "direct democracy" model where every coin holder can vote. Changes to the REI Network or suggestions from the community can be publicized in the community through proposals, and users can vote on REI to achieve the goal of "everyone can govern the REI Network", which is to increase the governance value of REI. It is also the basis for the function of "community governance" in a deeper sense.',
+            steps4: '4. REI coin distribution after the split',
+            total: 'Total supply after split: 1,000,000,000',
+            port1: '750 million: circulated (including Staking 1-150 million, users have lost about 10% of the estimated part, the actual amount of circulated about 500 million, 41.7%) ',
+            port2: '250 million: developer ecosystem',
+            spread1: '150 million incentive developers',
+            spread2: '5 million for marketing promoting',
+            spread3: '5 million selected nodes mining rewards',
+            steps5: 'TrustNodes migration solution of GXChain 1.0 to GXChain 2.0 (REI)',
+            detailed: 'The TrustNode of GXChain 1.0 was originated from the initial election starting in 2018, is  a sign that the GXChain community has strong vitality and self-organization capabilities. In several iterations period since then, the TrustNode have proven to complete the stage of protecting the underlying security and stability of the public chain, so we will still continue the supernode election model on the REI Network in the future, with the specific implementation plan as follows：',
+            plan1: '1) Coin swap between REI and GXC the core assets',
+            consult: 'Please refer to《6. Token swap plan of REI-GXC》below.',
+            plan2: '2) Protective period of the node hosting ',
+            deposit: 'During the coin swap process, in the event of network instability, the 21 supernodes will be temporarily hosted by official nodes within a specified period of time. The escrow is required for two conditions to be met: ',
+            term_a: 'a. The proposal has been voted on by the community and the native coin swap between GXChain and REI Network has already taken place.',
+            term_b: 'b. Most of the main chain assets have cross-chained to the REI Network and this has the potential to affect the stability and security of the original public chain.',
+            plan3: '3) REI Network Super Node election campaign',
+            campaign: 'At the start of the migration, the REI Network Super Node election campaign will be launched to welcome more powerful, influential, and inspiring crypto organizations and community members to become REI Network Super Nodes.',
+            steps6: '6.Token swap plan of REI-GXC',
+            rei_gxc: 'After the adoption of this proposal, the coin swap mechanism between REI and GXC will be processed every 24 hours in the smart contract, and the exchange between REI-GXC  will be processed during that time period, this function will remain as a fundamental swap function for a longer period.'
         },
-        extra:{
-          head:'对于 EVM 的共生红利',
-          stage1:'REI Network 是一兼容以太坊 EVM，对支持企业和开发者更为友好，轻量且免费的应用级新型公链。主要在于强化轻量、免费的特点，同时可以无限延展，做到开发轻量级且具备创新能力的公链，致力于解决当前公链所面对的集体困境，为公链转型和跨链的新范式提供了完备的解决方案。',
-          stage2:'新构建一个区块链平台，最初的用户其实就是开发者，开发者需要发挥自己的创造力吸引用户到来 (包括优质的应用、创新的用例和使用体验等等)。但五花八门的平台如何选择，就成为开发者一开始就需要思考的关键问题。我们可以将 EVM 看作 ETH 创造的一个手机操作系统，且是目前技术成熟度最高最稳定的手机系统，这对于现有的开发者来说无疑是最具有吸引力的，他们无需任何学习成本即可在兼容 EVM 的任何区块链平台完成开发。',
-          stage3:'而升级后与 EVM 兼容意味着 REI Network 能在更高性能、更低使用成本的前提下，对几乎所有 Defi 应用进行无缝迁移，从而为更低成本的 Defi 创新和跨链迁移创造条件。得以让其应用场景短时间快速拓展，生态内的用户便会有更多的应用选择和开发工具，而随着开发难度降低，生态激励部分对于普通开发者的吸引力会进一步扩大，从而形成良性循环的完美闭环。',
-          stage4:'其次，兼容 EVM 就意味随着链上用户的增加以及 DeFi 宇宙的继续扩大，新兴的公链生态能够有机会承接 ETH 因为性能限制溢出的需求。由于 EVM 的便捷，新公链也能有机会争取到现有的顶级 DeFi 项目，以及使用这些 DeFi 项目的用户。',
-        },
-        reality:'而这些，在 REI Network 或者都是即将发生的现实。',
-        stage_end:'「逝者如斯夫，不舍昼夜」，在日新月异的加密世界，我们很高兴看到了 GXChain 的华丽转型，这不仅仅是一场简单的改变，而是对于适应加密世界的自我革命，因为我们发现在新的框架内大有可为，我们依然不放弃在自己的领域内作天下倡，同时也为当前的区块链世界面对的难题提出自己的思考、方案和最优解，也是我们一贯的秉持的极客精神的自我迭代和脉络传承。',
-        ending:'在未来加密世界，和 REI Network 做朋友，和时间做朋友。'
-      }
+        content3: {
+            title: 'Section 3 of the proposal: The Roadmap of REI Network',
+            construct: {
+                head: 'The team holds "0" coins and gives back to the eco-building',
+                stage1: 'The key to public chain development is the prosperity of its ecosystem, and developers are the foundation of it, and the development of the public chain ecosystem needs the cluster and support of developers. Therefore, we need to attract more developers to join the ecosystem to strengthen the public chain itself. Different from the other chains that were claimed to be ETH killers, REI Network will take on the commercial value of ETH overflowed through its high performance, free, and lightweight features, and will subsequently access EVM to form an ecosystem chain exclusively for REI Network from various aspects.',
+                stage2: 'Since 2017, GXC has been unlocking 5 million per year for the GXChain team`s operations and marketing, with 25 million GXC remaining unlocked as of this year. The team will use the unlocked 250 million REI (after the GXC split) to incentivize REI Network contributors and developers, including but not limited to rewards for outstanding developers, investment in quality projects, user rewards for significant contributions to the ecosystem, etc. The amount of coins held by the team has also been changed from 25% to 0%.',
+                stage3: 'The ecological fund will be released gradually as the ecosystemdevelops, and will not be directly circulated in the market for a considerable period of time, which will not cause an increase in market circulation in the short term and thus put more pressure on the token price but will instead be converted into an incentive for ecological construction. This incentive will attract a large number of developers and the REI Network ecosystem will flourish, creating an efficient and virtuous cycle between the ecosystem and the main chain of REI Network.。',
+                stage4: 'This is just the beginning of the REI Network, and it`s far from over for the public chain ecosystem. We will turn more attention to the developers, and only a large community of developers can create a greater public chain ecosystem.'
+            },
+            worth: {
+                head: 'Giving back to the community and the value of returning',
+                stage1: 'With the explosion of new on-chain applications such as DeFi, GameFi, NFTs, etc., a large number of users who would only trade in CeFi have successfully started to convert to on-chain trading. We can foresee that in the near future, more crypto users will start to convert to the on-chain users, who will trade, collect, entertain and even live on-chain, which is an irreversible trend brought about by the development of blockchain.',
+                stage2: 'his is our ultimate goal in splitting GXC, after which we will continue to strengthen the on-chain ecosystem and find our own method in the surging blockchain industry. REI Network is a new type of public chain that meets the actual needs of the current blockchain and public chain`s development through the optimization of the underlying code and the 4-year exploration of the public chain model and user building of its predecessor GXChain. In the past 4 years, our original goal has never changed. The scars we have had are the medals of fearlessness that we keep moving forward.',
+                stage3: 'At the same time, REI Network will be an international public chain with users in mind! We will focus on improving the performance of the public chain, and will also dedicate more to user experience optimization. The 5 million GXC allocated for marketing will be partly spent by the team, which includes not only marketing but also, more importantly, giving back to the community, and rewarding users and the contributors from our community.',
+                stage4: 'The on-chain governance support has been prepared, its importance will become more prominent. In which anyone will be allowed to initiate proposals to the community through the governance function. I believe that in the foreseeable future, more people will stand together with REI Network to share the right of governance!'
+            },
+            extra: {
+                head: 'The Symbiotic value for the EVM ecosystem',
+                stage1: 'REI Network will be compatible with Ethereum, and more friendly to support enterprises and developers, lightweight and quasi-free new application-level public chain. The main feature is to strengthen the tech features of lightweight and free, while being infinitely extensible, so as to develop lightweight and self-contained innovative public chains, dedicated to solving the collective dilemma faced by the current public chains, and providing a self-contained solution for the transformation of public chains and a new paradigm of cross-chain.',
+                stage2: 'When building a new blockchain, the initial users are actually the developers, who need to use their creativity to attract users (including the top applications, innovative use cases, and experiences, etc.). But the choice between the various platforms is a key question for developers to consider from the outset. The EVM ecosystem could be seen as a mobile operating system created by ETH and is the most technically mature and stable mobile system available, which is certainly the most attractive to existing developers who can develop on any EVM-compatible blockchain platform without any learning costs.',
+                stage3: 'The upgrade to EVM compatibility means that REI Network can seamlessly migrate almost all DeFi DApps with higher performance and lower cost of use, thus creating the conditions for lower cost Defi innovation and cross-chain migration. By enabling the rapid expansion of its application landscape in a short period of time, users within the ecosystem will have a wider choice of applications and development tools, and as development becomes less difficult, the incentive component of the ecosystem will become more attractive to the average developer, creating the perfect loop for a virtuous cycle.',
+                stage4: 'Secondly, EVM compatibility means that as the number of users on the chain grows and the DeFi universe continues to expand, the emerging public chain ecosystem has the opportunity to take over the overflow from ETH due to performance limitations. Thanks to the ease of EVM, new public chains will also have the opportunity to gain access to the top existing DeFi projects and the users who use them.'
+            },
+            reality: 'And all of this, at REI Network, is the reality of what is about to happen.',
+            stage_end: 'In the ever-changing crypto world, we are glad to see the magnificent transformation of GXChain, which is not just a simple change, but a self-revolution for adapting to the crypto world, as we find great potential in the new framework, and we still do not give up being a pioneer in our own field, but also propose our own thinking and optimal solutions to the current challenges faced by the blockchain world. It is also a self-iteration and transmission of the geek spirit we have always upheld.',
+            ending: 'In the crypto world of the future, make friends with REI Network and make friends with time.'
+        }
     }
-  }
+}
 };
