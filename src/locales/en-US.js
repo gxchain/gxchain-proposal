@@ -4,7 +4,7 @@ module.exports = {
     vote: 'Vote',
     vote_number: 'Number of votes',
     share: 'Share',
-    active: 'active',
+    active: 'Active',
     cast: 'Cast',
     information: 'Information',
     result: 'Current result',
