@@ -65,7 +65,7 @@
               </ul>
             </li>
           </ul>
-          <img class="image" src="@/assets/image.png" alt="">
+          <img class="image" :src='this.$t("proposal_content.substance.content2.image")' alt="">
           <h4>{{ $t("proposal_content.substance.content2.steps5") }}</h4>
           <p>{{ $t("proposal_content.substance.content2.detailed") }}</p>
           <div class="div-content">{{ $t("proposal_content.substance.content2.plan1") }}
@@ -219,6 +219,24 @@
             </div>
           </div>
         </div>
+        <div class="right-fomat">
+          <div class="result-header">
+              <div class="inforText">{{$t("vote_rules.title")}}</div>
+          </div>
+          <div class="result">
+            <h5>{{$t("vote_rules.statistics")}}</h5>
+            <p>{{$t("vote_rules.details")}}</p>
+            <p>{{$t("vote_rules.balance")}}</p>
+            <p>{{$t("vote_rules.locked_position")}}</p>
+            <h5>{{$t("vote_rules.rules")}}</h5>
+            <p>{{$t("vote_rules.first_rules")}}</p>
+            <p>{{$t("vote_rules.second_rules")}}</p>
+            <p>{{$t("vote_rules.third_rules")}}</p>
+            <h5>{{$t("vote_rules.conditions")}}</h5>
+            <p>{{$t("vote_rules.first_conditions")}}</p>
+            <p>{{$t("vote_rules.second_conditions")}}</p>
+          </div>
+        </div>
       </div>
     </div>
     <div class="footer"></div>
@@ -287,10 +305,10 @@ export default {
     })
     this.getVoter()
     this.getEndTime()
+    this.getStartTime()
     this.timer = setInterval(()=>{
       this.getVoter()
     },3000);
-    this.getStartTime()
   },
   methods: {
     output() {
@@ -301,7 +319,7 @@ export default {
           return arg
         }
       })
-      console.log(...arguments)
+      // console.log(...arguments)
     },
     async login(){
       if(!GScatterJS.gscatter.isExtension){
@@ -339,7 +357,7 @@ export default {
     },
     //点击展开更多
     expendMore(){
-      this.moreSteps+=20;
+      this.moreSteps += 20;
        axios({
         method:'get',
         url:`${process.env.__SERVICE__}/proposal/api/voter`,
@@ -369,7 +387,6 @@ export default {
         }
       }).then((resp)=>{
         this.votingstate = resp.data.votingstate
-        console.log(resp.data)
       }).catch(resp => {
         console.log(this.$t("home.request")+resp.status+','+resp.statusText);
       });
@@ -491,7 +508,7 @@ export default {
         this.user.voteUserTrue = Number.parseFloat(resp.data.voterTrueNum/this.user.totalUserVote*100).toFixed(2); //投true总人数
         this.user.voteUserFalse = Number.parseFloat(resp.data.voterFalseNum/this.user.totalUserVote*100).toFixed(2); //投false总人数
       }).catch(resp => {
-        console.log(this.$t("home.request")+resp.status+','+resp.statusText);
+        console.log(this.$t("home.statistics_request")+resp.status+','+resp.statusText);
         this.$message({
           message:this.$t("home.statistics_request")+resp.status+','+resp.statusText,
           type: 'error'
@@ -544,7 +561,6 @@ export default {
           this.user.totalUserVote = resp.data.statistics.voteUserNumber; //投票总人数
           this.user.voteUserTrue = (resp.data.statistics.voteUserNumberTrue/this.user.totalUserVote*100); //投true总人数
           this.user.voteUserFalse = (resp.data.statistics.voteUserNumberFalse/this.user.totalUserVote*100); //投false总人数
-          console.log(resp.data);
         }).catch(resp => {
           console.log(this.$t("home.request")+resp.status+','+resp.statusText);
           this.$message({
@@ -666,6 +682,9 @@ export default {
           font-size: 14px;
           line-height: 28px;
         }
+        h4{
+          margin-top: 20px;
+        }
         .div-content{
           margin-top: 20px;
           font-size: 14px;
@@ -673,9 +692,6 @@ export default {
           div{
             padding:0 20px;
           }
-        }
-        h4{
-          margin-top: 20px;
         }
         h5{
           margin-top: 16px;
@@ -905,6 +921,14 @@ export default {
         background-color: #FFF;
         padding:1.2rem;
         border-radius: 10px;
+        p{
+          margin-top: 6px;
+          font-size: 13px;
+          line-height: 28px;
+        }
+        h5{
+          margin-top: 20px;
+        }
         .result-header{
           display: flex;
           justify-content: space-between;
