@@ -149,6 +149,14 @@
             <div>{{$t("home.end_date")}}</div>
             <div>{{new Date(new Date(this.stopTime).getTime()).format('yyyy-MM-dd hh:mm:ss')}}</div>
           </div>
+          <div class="information">
+            <div>{{$t("home.start_block")}}</div>
+            <div>46486793</div>
+          </div>
+          <div class="information">
+            <div>{{$t("home.end_block")}}</div>
+            <div>46630793</div>
+          </div>
         </div>
         <div class="right-fomat">
           <div class="result-header">
@@ -170,7 +178,8 @@
                 <div class="clip-background">
                     <div class='clip' :style="{width:this.number.voteNumberTrue+'%'}"></div>
                 </div>
-                <div style="width:70px">{{this.number.voteNumberTrue}}%</div>
+                <div style="width:70px" v-if='this.user.totalUserVote !== 0'>{{this.number.voteNumberTrue}}%</div>
+                <div style="width:70px" v-else>0%</div>
               </div>
             </div>
             <div class="result-content">
@@ -179,7 +188,8 @@
                 <div class="clip-background">
                     <div class='clip' :style="{width:this.number.voteNumberFalse+'%'}"></div>
                 </div>
-                <div style="width:70px">{{this.number.voteNumberFalse}}%</div>
+                <div style="width:70px" v-if='this.user.totalUserVote !== 0'>{{this.number.voteNumberFalse}}%</div>
+                <div style="width:70px" v-else>0%</div>
               </div>
             </div>
           </div>
@@ -205,7 +215,8 @@
                 <div class="clip-background">
                     <div class='clip' :style="{width:this.user.voteUserTrue+'%'}"></div>
                 </div>
-                <div>{{this.user.voteUserTrue}}%</div>
+                <div v-if='this.user.totalUserVote !== 0'>{{this.user.voteUserTrue}}%</div>
+                <div style="width:70px" v-else>0%</div>
               </div>
             </div>
             <div class="result-content">
@@ -214,7 +225,8 @@
                 <div class="clip-background">
                     <div class='clip' :style="{width:this.user.voteUserFalse+'%'}"></div>
                 </div>
-                <div>{{this.user.voteUserFalse}}%</div>
+                <div v-if='this.user.totalUserVote !== 0'>{{this.user.voteUserFalse}}%</div>
+                <div style="width:70px" v-else>0%</div>
               </div>
             </div>
           </div>
@@ -277,11 +289,11 @@ export default {
       user: {
           totalUserVote: 0,
           voteUserTrue: 0,
-          voteUserFalse:0
+          voteUserFalse: 0
       },
       canVote:true,
-      startTime:'2021-12-02 03:12:00',
-      stopTime:'2021-12-07 12:00:00',
+      startTime:'2021-12-02 20:00:00',
+      stopTime:'2021-12-07 20:00:00',
       moreSteps:10,
       votingstate:true
     };
@@ -305,7 +317,7 @@ export default {
     })
     this.getVoter()
     this.getEndTime()
-    this.getStartTime()
+    // this.getStartTime()
     this.timer = setInterval(()=>{
       this.getVoter()
     },3000);
@@ -319,7 +331,7 @@ export default {
           return arg
         }
       })
-      console.log(...arguments)
+      // console.log(...arguments)
     },
     async login(){
       if(!GScatterJS.gscatter.isExtension){
@@ -531,18 +543,19 @@ export default {
         });
       });
     },
-    getStartTime () {
-      //投票开始和结束的时间
-      axios({
-        method:'get',
-        url:`${process.env.__SERVICE__}/api/date`
-      }).then((resp)=>{
-        this.startTime = resp.data.startTime;
-        this.stopTime = resp.data.stopTime;
-      }).catch(resp => {
-        console.log(this.$t("home.request") +resp.status+','+resp.statusText);
-      });
-    },
+    // getStartTime () {
+    //   //投票开始和结束的时间
+    //   axios({
+    //     method:'get',
+    //     url:`${process.env.__SERVICE__}/api/date`
+    //   }).then((resp)=>{
+    //     this.startTime = resp.data.startTime;
+    //     this.stopTime = resp.data.stopTime;
+    //     console.log(resp.data)
+    //   }).catch(resp => {
+    //     console.log(this.$t("home.request") +resp.status+','+resp.statusText);
+    //   });
+    // },
     //请求投票结果
     getVoteResult(){
       // 判断投票是否结束
