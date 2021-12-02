@@ -370,6 +370,7 @@ export default {
     //点击展开更多
     expendMore(){
       this.moreSteps += 20;
+      console.log('moreSteps',this.moreSteps)
        axios({
         method:'get',
         url:`${process.env.__SERVICE__}/api/voter`,
@@ -378,6 +379,7 @@ export default {
         }
       }).then((resp)=>{
         this.resultSum = resp.data.resultsSum;
+        this.detailList = resp.data.result;
       }).catch(resp => {
         console.log(this.$t("home.request")+resp.status+','+resp.statusText);
         this.$message({
@@ -495,7 +497,10 @@ export default {
       //获取投票人及其信息
       axios({
         method:'get',
-        url:`${process.env.__SERVICE__}/api/voter`
+        url:`${process.env.__SERVICE__}/api/voter`,
+        params:{
+          limit:this.moreSteps
+        }
       }).then((resp)=>{
         this.detailList = resp.data.result;
         this.resultSum = resp.data.resultsSum;
