@@ -839,7 +839,7 @@ export default {
             .vote-head {
               display: flex;
               align-items: center;
-              width:28%;
+              width:46%;
             }
             .createdAt{
               font-size: 12px;
