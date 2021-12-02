@@ -280,8 +280,8 @@ export default {
           voteUserFalse:0
       },
       canVote:true,
-      startTime:'2021-11-15 07:48:33',
-      stopTime:'2021-11-24 16:00:00',
+      startTime:'2021-12-02 03:12:00',
+      stopTime:'2021-12-07 12:00:00',
       moreSteps:10,
       votingstate:true
     };
@@ -319,7 +319,7 @@ export default {
           return arg
         }
       })
-      // console.log(...arguments)
+      console.log(...arguments)
     },
     async login(){
       if(!GScatterJS.gscatter.isExtension){
@@ -360,7 +360,7 @@ export default {
       this.moreSteps += 20;
        axios({
         method:'get',
-        url:`${process.env.__SERVICE__}/proposal/api/voter`,
+        url:`${process.env.__SERVICE__}/api/voter`,
         params:{
           limit:this.moreSteps
         }
@@ -381,7 +381,7 @@ export default {
     getvoted(){
       axios({
         method:'get',
-        url:`${process.env.__SERVICE__}/proposal/api/findone`,
+        url:`${process.env.__SERVICE__}/api/findone`,
         params:{
           name:this.accountName
         }
@@ -483,7 +483,7 @@ export default {
       //获取投票人及其信息
       axios({
         method:'get',
-        url:`${process.env.__SERVICE__}/proposal/api/voter`
+        url:`${process.env.__SERVICE__}/api/voter`
       }).then((resp)=>{
         this.detailList = resp.data.result;
         this.resultSum = resp.data.resultsSum;
@@ -499,7 +499,7 @@ export default {
     getNoStopVote () {
       axios({
         method:'get',
-        url:`${process.env.__SERVICE__}/proposal/api/voter_sum`
+        url:`${process.env.__SERVICE__}/api/voter_sum`
       }).then((resp)=>{
         this.number.totalVote = resp.data.voterGXCSum;
         this.number.voteNumberTrue = (resp.data.voterGXCTrueSum/this.number.totalVote*100).toFixed(5);
@@ -519,7 +519,7 @@ export default {
       //投票是否结束
       axios({
         method:'get',
-        url:`${process.env.__SERVICE__}/proposal/api/state`
+        url:`${process.env.__SERVICE__}/api/state`
       }).then((resp)=>{
         this.canVote = resp.data.canVote;
         this.getVoteResult();
@@ -535,11 +535,10 @@ export default {
       //投票开始和结束的时间
       axios({
         method:'get',
-        url:`${process.env.__SERVICE__}/proposal/api/date`
+        url:`${process.env.__SERVICE__}/api/date`
       }).then((resp)=>{
         this.startTime = resp.data.startTime;
         this.stopTime = resp.data.stopTime;
-        console.log(resp.data)
       }).catch(resp => {
         console.log(this.$t("home.request") +resp.status+','+resp.statusText);
       });
@@ -550,7 +549,7 @@ export default {
       if (!this.canVote) {
         axios({
           method:'get',
-          url:`${process.env.__SERVICE__}/proposal/api/statistics`
+          url:`${process.env.__SERVICE__}/api/statistics`
         }).then((resp) => {
           this.number.totalVote = resp.data.statistics.totalVoteGXCNumber; //投票总数
           this.number.voteNumberTrue = (resp.data.statistics.totalVoteGXCNumberTrue/this.number.totalVote*100); //投true总数
@@ -827,7 +826,7 @@ export default {
             .vote-head {
               display: flex;
               align-items: center;
-              width:120px;
+              width:28%;
             }
             .createdAt{
               font-size: 12px;
