@@ -280,8 +280,8 @@ export default {
           voteUserFalse:0
       },
       canVote:true,
-      stopTime:'',
-      startTime:'',
+      startTime:'2021-11-15 07:48:33',
+      stopTime:'2021-11-24 16:00:00',
       moreSteps:10,
       votingstate:true
     };
@@ -539,12 +539,9 @@ export default {
       }).then((resp)=>{
         this.startTime = resp.data.startTime;
         this.stopTime = resp.data.stopTime;
+        console.log(resp.data)
       }).catch(resp => {
         console.log(this.$t("home.request") +resp.status+','+resp.statusText);
-        this.$message({
-          message:this.$t("home.state_request")+resp.status+','+resp.statusText,
-          type: 'error'
-        });
       });
     },
     //请求投票结果
