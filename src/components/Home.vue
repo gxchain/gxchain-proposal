@@ -143,11 +143,11 @@
           <div class="inforText">{{$t("home.information")}}</div>
           <div class="information">
             <div>{{$t("home.start_date")}}</div>
-            <div>{{new Date(new Date(this.startTime).getTime()).format('yyyy-MM-dd hh:mm:ss')}}</div>
+            <div>{{this.startTime}}</div>
           </div>
           <div class="information">
             <div>{{$t("home.end_date")}}</div>
-            <div>{{new Date(new Date(this.stopTime).getTime()).format('yyyy-MM-dd hh:mm:ss')}}</div>
+            <div>{{this.stopTime}}</div>
           </div>
           <div class="information">
             <div>{{$t("home.start_block")}}</div>
@@ -619,6 +619,7 @@ export default {
 * {
   margin: 0;
   padding: 0;
+  font-family: 'PingFang SC', Helvetica, Arial, sans-serif !important;
 }
 .home {
   .header {
@@ -663,6 +664,7 @@ export default {
         justify-content: space-around;
         border-radius: 16px;
         cursor: pointer;
+        align-items: center;
         .switch{
           background: rgb(123, 166, 255);
           color: #fff;
