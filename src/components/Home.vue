@@ -564,7 +564,9 @@ export default {
     //请求投票结果
     getVoteResult(){
       // 判断投票是否结束
-      if (!this.canVote) {
+      //if (!this.canVote) {
+      const canVote = false;
+      if (canVote) {
         axios({
           method:'get',
           url:`${process.env.__SERVICE__}/api/statistics`
