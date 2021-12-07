@@ -291,7 +291,7 @@ export default {
           voteUserTrue: 0,
           voteUserFalse: 0
       },
-      canVote:true,
+      canVote:false,
       startTime:'2021-12-02 20:00:00',
       stopTime:'2021-12-07 20:00:00',
       moreSteps:10,
