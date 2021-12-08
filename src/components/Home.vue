@@ -572,11 +572,11 @@ export default {
           url:`${process.env.__SERVICE__}/api/statistics`
         }).then((resp) => {
           this.number.totalVote = resp.data.statistics.totalVoteGXCNumber; //投票总数
-          this.number.voteNumberTrue = (resp.data.statistics.totalVoteGXCNumberTrue/this.number.totalVote*100); //投true总数
-          this.number.voteNumberFalse = (resp.data.statistics.totalVoteGXCNumberFalse/this.number.totalVote*100); //投false总数
+          this.number.voteNumberTrue = (resp.data.statistics.totalVoteGXCNumberTrue/this.number.totalVote*100).toFixed(5); //投true总数
+          this.number.voteNumberFalse = (resp.data.statistics.totalVoteGXCNumberFalse/this.number.totalVote*100).toFixed(5); //投false总数
           this.user.totalUserVote = resp.data.statistics.voteUserNumber; //投票总人数
-          this.user.voteUserTrue = (resp.data.statistics.voteUserNumberTrue/this.user.totalUserVote*100); //投true总人数
-          this.user.voteUserFalse = (resp.data.statistics.voteUserNumberFalse/this.user.totalUserVote*100); //投false总人数
+          this.user.voteUserTrue = (resp.data.statistics.voteUserNumberTrue/this.user.totalUserVote*100).toFixed(2); //投true总人数
+          this.user.voteUserFalse = (resp.data.statistics.voteUserNumberFalse/this.user.totalUserVote*100).toFixed(2); //投false总人数
         }).catch(resp => {
           console.log(this.$t("home.request")+resp.status+','+resp.statusText);
           this.$message({
